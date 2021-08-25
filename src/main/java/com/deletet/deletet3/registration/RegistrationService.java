@@ -4,7 +4,6 @@ package com.deletet.deletet3.registration;
 import com.deletet.deletet3.appuser.*;
 import com.deletet.deletet3.registration.token.ConfirmationToken;
 import com.deletet.deletet3.registration.token.ConfirmationTokenService;
-import com.deletet.deletet3.security.PasswordEncoder;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
