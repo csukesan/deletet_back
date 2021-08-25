@@ -14,4 +14,9 @@ public class PasswordEncoder {
         return new BCryptPasswordEncoder();
     }
 
+    public boolean matches(String password, String password1) {
+       if(password.equals(password1))
+            return true;
+       else return false;
+    }
 }

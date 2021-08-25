@@ -1,12 +1,14 @@
 package com.deletet.deletet3.registration;
 
 
-import com.deletet.deletet3.appuser.AppUser;
-import com.deletet.deletet3.appuser.AppUserRole;
-import com.deletet.deletet3.appuser.AppUserService;
+import com.deletet.deletet3.appuser.*;
 import com.deletet.deletet3.registration.token.ConfirmationToken;
 import com.deletet.deletet3.registration.token.ConfirmationTokenService;
+import com.deletet.deletet3.security.PasswordEncoder;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,37 +21,53 @@ public class RegistrationService {
     private final AppUserService appUserService;
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
+    AuthenticationManager authenticationManager;
 
 
-    public String register(RegistrationRequest request) {
-        boolean isValidEmail = emailValidator.test(request.getEmail());
+
+    public ResponseEntity<?> register(RegistrationRequest regRequest) {
+        boolean isValidEmail = emailValidator.test(regRequest.getEmail());
         if(!isValidEmail)
         {
-            throw new IllegalStateException("email is not valid");
+            throw new IllegalStateException("Email is not valid");
         }
 
         String token;
 
         AppUser user;
-        if(request.getRole()==1)
+        if(regRequest.getRole()==1)
         {
-            user = new AppUser(request.getFirstName(),request.getLastName(),request.getEmail(),request.getPassword(), AppUserRole.USER);
+            user = new AppUser(regRequest.getFirstName(),regRequest.getLastName(),regRequest.getEmail(),regRequest.getPassword(), AppUserRole.USER);
         }
-        else if(request.getRole()==2)
+        else if(regRequest.getRole()==2)
         {
-            user = new AppUser(request.getFirstName(),request.getLastName(),request.getEmail(),request.getPassword(), AppUserRole.COMPANY);
+            user = new AppUser(regRequest.getFirstName(),regRequest.getLastName(),regRequest.getEmail(),regRequest.getPassword(), AppUserRole.COMPANY);
         }
         else
         {
-          user=  new AppUser(request.getFirstName(),request.getLastName(),request.getEmail(),request.getPassword(), AppUserRole.ADMIN);
+          user=  new AppUser(regRequest.getFirstName(),regRequest.getLastName(),regRequest.getEmail(),regRequest.getPassword(), AppUserRole.ADMIN);
         }
 
         token= appUserService.signUpUser(user);
 
-        String result = confirmToken(token);
+       confirmToken(token);
 
-        //return appUserService.signUpUser(user);
-        return result;
+        return ResponseEntity.ok("User registered successfully");
+
+    }
+
+
+    public ResponseEntity<AppUserDTO> login (LoginRequest logRequest)  {
+
+        AppUser appUser = appUserService.signInUser(logRequest.getEmail(), logRequest.getPassword());
+        if(appUser != null)
+        {
+            return new ResponseEntity<>(new AppUserDTO(appUser.getId(),appUser.getFirstName(),appUser.getLastName(),appUser.getEmail(),appUser.getPassword(),appUser.getAppUserRole()), HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(null, HttpStatus.UNPROCESSABLE_ENTITY);
+        }
 
     }
 

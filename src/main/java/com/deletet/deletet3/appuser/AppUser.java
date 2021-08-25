@@ -1,5 +1,6 @@
 package com.deletet.deletet3.appuser;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,6 +49,7 @@ public class AppUser implements UserDetails {
     }
 
 
+
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority =
                 new SimpleGrantedAuthority(appUserRole.name());
@@ -69,6 +71,14 @@ public class AppUser implements UserDetails {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public AppUserRole getAppUserRole() {
+        return appUserRole;
+    }
+
+    public void setAppUserRole(AppUserRole appUserRole) {
+        this.appUserRole = appUserRole;
     }
 
     @Override

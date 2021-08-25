@@ -2,6 +2,7 @@ package com.deletet.deletet3.appuser;
 
 import com.deletet.deletet3.registration.token.ConfirmationToken;
 import com.deletet.deletet3.registration.token.ConfirmationTokenService;
+import com.deletet.deletet3.security.PasswordEncoder;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +20,7 @@ public class AppUserService implements UserDetailsService {
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
+    private final PasswordEncoder passwordEncoder;
 
     private final static String USER_NOT_FOUND_MSG =
             "User with email %s not found";
@@ -29,6 +31,38 @@ public class AppUserService implements UserDetailsService {
                 .orElseThrow(() ->
                         new UsernameNotFoundException(
                                 String.format(USER_NOT_FOUND_MSG, email)));
+    }
+
+    public AppUser loadUser(String email)
+    {
+        return (AppUser) appUserRepository.findByEmail(email).orElseThrow(() ->
+            new UsernameNotFoundException(
+                    String.format(USER_NOT_FOUND_MSG, email)));
+    }
+
+    public AppUser signInUser(String email,String password)
+    {
+        boolean userExists = appUserRepository
+                .findByEmail(email)
+                .isPresent();
+
+        if(userExists)
+        {
+            UserDetails user = loadUserByUsername(email);
+            if(passwordEncoder.matches(password,user.getPassword()))
+            {
+                AppUser appUser = loadUser(email);
+                return appUser;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public String signUpUser(AppUser appUser) {
@@ -46,7 +80,7 @@ public class AppUserService implements UserDetailsService {
         String encodedPassword = bCryptPasswordEncoder
                 .encode(appUser.getPassword());
 
-        appUser.setPassword(encodedPassword);
+        //appUser.setPassword(encodedPassword);
 
         appUserRepository.save(appUser);
 
@@ -61,9 +95,6 @@ public class AppUserService implements UserDetailsService {
 
         confirmationTokenService.saveConfirmationToken(
                 confirmationToken);
-
-//        TODO: SEND EMAIL
-
         return token;
     }
 
