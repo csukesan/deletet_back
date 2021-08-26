@@ -1,6 +1,9 @@
 package com.deletet.deletet3.registration;
 
 
+import com.deletet.deletet3.Profile.Profile;
+import com.deletet.deletet3.Profile.ProfileDTO;
+import com.deletet.deletet3.Profile.ProfileRepository;
 import com.deletet.deletet3.appuser.*;
 import com.deletet.deletet3.registration.token.ConfirmationToken;
 import com.deletet.deletet3.registration.token.ConfirmationTokenService;
@@ -21,6 +24,8 @@ public class RegistrationService {
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
     AuthenticationManager authenticationManager;
+    private final ProfileRepository profileRepository;
+    //private finalProfileDTO profileDTO;
 
 
 
@@ -49,8 +54,12 @@ public class RegistrationService {
 
         token= appUserService.signUpUser(user);
 
-       confirmToken(token);
+        confirmToken(token);
 
+        String fullName = user.getFirstName()+" " +user.getLastName();
+
+        Profile profile = new Profile(user.getId(),fullName,user.getEmail());
+        profile = profileRepository.save(profile);
         return ResponseEntity.ok("User registered successfully");
 
     }

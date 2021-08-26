@@ -1,7 +1,5 @@
 package com.deletet.deletet3.Adverts;
 
-
-import com.deletet.deletet3.appuser.AppUserRole;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +15,7 @@ import javax.persistence.*;
 public class Adverts {
 
     @Id
-    @SequenceGenerator(name="advert_squence",sequenceName= "advert_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "advert_squence", sequenceName = "advert_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "advert_sequence")
     private Long id;
@@ -25,14 +23,17 @@ public class Adverts {
     private String companyName;
     private String companyLocation;
     private String companyIcon;
+    @Column(columnDefinition = "TEXT")
     private String companyDesc;
     private String advertsDate;
     private String wayOfWorking;
+    @Column(columnDefinition = "TEXT")
     private String advertsAbout;
     private String advertsTitle;
+    @Column(columnDefinition = "TEXT")
     private String advertsDescription;
 
-    public Adverts(Long id, Long categoryId,String companyName, String companyLocation, String companyIcon, String companyDesc, String advertsDate, String wayOfWorking, String advertsAbout, String advertsTitle, String advertsDescription) {
+    public Adverts(Long id, Long categoryId, String companyName, String companyLocation, String companyIcon, String companyDesc, String advertsDate, String wayOfWorking, String advertsAbout, String advertsTitle, String advertsDescription) {
         this.id = id;
         this.categoryId = categoryId;
         this.companyName = companyName;

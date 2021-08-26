@@ -26,10 +26,12 @@ public class Application {
         private String companyName;
         private String companyLocation;
         private String companyIcon;
+        @Column(columnDefinition = "TEXT")
         private String companyDesc;
         private String applicationDate;
         private String wayOfWorking;
         private String advertsTitle;
+        @Column(columnDefinition = "TEXT")
         private String advertsDescription;
         private int status;
 

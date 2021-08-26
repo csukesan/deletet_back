@@ -28,6 +28,7 @@ public class Company {
     private String address;
     private String contact;
     private String website;
+    @Column(columnDefinition = "TEXT")
     private String companyAbout;
 
     public Company(Long id, String companyName, String companyUrl, String companyDepartment, String establishment, int employeeCount, String address, String contact, String website, String companyAbout) {
