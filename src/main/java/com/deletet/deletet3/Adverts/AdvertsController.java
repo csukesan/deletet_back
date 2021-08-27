@@ -1,14 +1,12 @@
 package com.deletet.deletet3.Adverts;
 
 
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.ToDoubleFunction;
 
 
 @CrossOrigin(origins = "", maxAge = 3600)
@@ -39,6 +37,7 @@ public class AdvertsController {
     {
         Adverts advert = new Adverts(request.getId(), request.getCategoryId(), request.getCompanyName(), request.getCompanyLocation(), request.getCompanyIcon(), request.getCompanyDesc(), request.getAdvertsDate(),request.getWayOfWorking(),request.getAdvertsAbout(),request.getAdvertsTitle(),request.getAdvertsDescription());
         advert = advertsRepository.save(advert);
+        String [] arr = new String [11];
         return new ResponseEntity<>(new AdvertsDTO(advert.getId(), advert.getCategoryId(),advert.getCompanyName(),advert.getCompanyLocation(),advert.getCompanyIcon(),advert.getCompanyDesc(),advert.getAdvertsDate(),advert.getWayOfWorking(),advert.getAdvertsAbout(),advert.getAdvertsTitle(),advert.getAdvertsDescription()),HttpStatus.OK);
     }
 

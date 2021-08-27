@@ -1,10 +1,12 @@
-package com.deletet.deletet3.Applications;
-
+package com.deletet.deletet3.Profile;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ApplicationRepository extends JpaRepository<Application,Long> {
+public interface ProfileRepository extends JpaRepository<Profile,Long> {
+
+
+
 }

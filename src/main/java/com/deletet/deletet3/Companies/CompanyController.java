@@ -25,7 +25,9 @@ public class CompanyController {
         List<CompanyDTO> companyDTOS = new ArrayList<>();
         for(Company company : companies)
         {
-            companyDTOS.add(new CompanyDTO(company.getId(),company.getCompanyName(),company.getCompanyUrl(),company.getCompanyDepartment(),company.getEstablishment(),company.getEmployeeCount(),company.getCompanyAbout(),company.getAddress(),company.getContact(),company.getWebsite()));
+            companyDTOS.add(new CompanyDTO(company.getId(),company.getCompanyName(),company.getCompanyUrl(),company.getCompanyDepartment(),
+                    company.getEstablishment(),company.getEmployeeCount(),company.getAddress(),company.getContact(),
+                    company.getWebsite(),company.getCompanyAbout()));
         }
         return new ResponseEntity<>(companyDTOS, HttpStatus.OK);
     }
@@ -33,8 +35,12 @@ public class CompanyController {
     @PostMapping("/company/create")
     public ResponseEntity<CompanyDTO> create(@RequestBody CompanyDTO request)
     {
-        Company company = new Company(request.getId(),request.getCompanyName(),request.getCompanyUrl(),request.getCompanyDepartment(),request.getEstablishment(),request.getEmployeeCount(),request.getCompanyAbout(),request.getAddress(),request.getContact(),request.getWebsite());
+        Company company = new Company(request.getId(),request.getCompanyName(),request.getCompanyUrl(),request.getCompanyDepartment(),
+                request.getEstablishment(),request.getEmployeeCount(),request.getAddress(),request.getContact(),
+                request.getWebsite(),request.getCompanyAbout());
         company = companyRepository.save(company);
-        return new ResponseEntity<>(new CompanyDTO(company.getId(),company.getCompanyName(),company.getCompanyUrl(),company.getCompanyDepartment(),company.getEstablishment(),company.getEmployeeCount(),company.getCompanyAbout(),company.getAddress(),company.getContact(),company.getWebsite()),HttpStatus.OK);
+        return new ResponseEntity<>(new CompanyDTO(company.getId(),company.getCompanyName(),company.getCompanyUrl(),company.getCompanyDepartment(),
+                company.getEstablishment(),company.getEmployeeCount(),company.getAddress(),company.getContact(),
+                company.getWebsite(),company.getCompanyAbout()),HttpStatus.OK);
     }
 }
