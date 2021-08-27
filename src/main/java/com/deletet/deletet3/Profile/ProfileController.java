@@ -112,5 +112,25 @@ public class ProfileController {
         }
 
     }
+
+    @PutMapping ("profile/updateProfilePoint/{id}")
+    public int updateProfilePoints(@PathVariable Long id) {
+        Long tempId = null;
+        int point = 0;
+        Optional<AppUser> appUser = appUserRepository.findById(id);
+        if (appUser.isPresent()) {
+            appuser = appUser.get();
+            List<Profile> profiles = profileRepository.findAll();
+            for (Profile profile : profiles) {
+                if (profile.getUserId() == appuser.getId()) {
+                    point = profile.calculateProfilePoints(profile);
+                }
+            }
+            return point;
+        } else {
+            return 0;
+        }
     }
+
+}
 

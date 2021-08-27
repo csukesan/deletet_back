@@ -39,8 +39,11 @@ public class CompanyController {
                 request.getEstablishment(),request.getEmployeeCount(),request.getAddress(),request.getContact(),
                 request.getWebsite(),request.getCompanyAbout());
         company = companyRepository.save(company);
+        //System.out.println(company.getCompanyAbout());
         return new ResponseEntity<>(new CompanyDTO(company.getId(),company.getCompanyName(),company.getCompanyUrl(),company.getCompanyDepartment(),
                 company.getEstablishment(),company.getEmployeeCount(),company.getAddress(),company.getContact(),
                 company.getWebsite(),company.getCompanyAbout()),HttpStatus.OK);
+
     }
+
 }

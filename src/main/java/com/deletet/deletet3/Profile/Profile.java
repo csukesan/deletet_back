@@ -76,4 +76,52 @@ public class Profile {
         this.experiences = experiences;
         this.followingTitles = followingTitles;
     }
+
+    public int calculateProfilePoints(Profile profile)
+    {
+        int point = 0;
+        if(profile.getImageUrl() != null)
+        {
+            point = point+10;
+        }
+        if(profile.getFullName() != null)
+        {
+            point = point+8;
+        }
+        if(profile.getAbout() != null)
+        {
+            point = point+15;
+        }
+        if(profile.getTckn()!=null)
+        {
+            point = point+12;
+        }
+        if(profile.getAddress()!=null)
+        {
+            point = point+5;
+        }
+        if(profile.getWebsite()!=null)
+        {
+            point = point+10;
+        }
+        if(profile.getPhoneNumber()!=null)
+        {
+            point = point + 10;
+        }
+        if(profile.getEmail()!=null)
+        {
+            point = point + 10;
+        }
+        if(profile.getUniversity()!=null)
+        {
+            point = point + 10;
+        }
+        if(profile.getExperiences()!=null)
+        {
+            point = point + 10;
+        }
+
+        return point;
+    }
+
 }
