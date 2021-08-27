@@ -54,17 +54,52 @@ public class ProfileController {
             List<Profile> profiles = profileRepository.findAll();
             for (Profile profile : profiles) {
                 if (profile.getUserId() == appuser.getId()) {
-                    profile.setImageUrl(request.getImageUrl());
-                    profile.setFullName(request.getFullName());
-                    profile.setAbout(request.getAbout());
-                    profile.setTckn(request.getTckn());
-                    profile.setAddress(request.getAddress());
-                    profile.setWebsite(request.getWebsite());
-                    profile.setPhoneNumber(request.getPhoneNumber());
-                    profile.setEmail(request.getEmail());
-                    profile.setUniversity(request.getUniversity());
-                    profile.setExperiences(request.getExperiences());
-                    profile.setFollowingTitles(request.getFollowingTitles());
+                    if(request.getImageUrl() != null)
+                    {
+                        profile.setImageUrl(request.getImageUrl());
+                    }
+                    if(request.getFullName() != null)
+                    {
+                        profile.setFullName(request.getFullName());
+                    }
+                    if(request.getAbout() != null)
+                    {
+                        profile.setAbout(request.getAbout());
+                    }
+                    if(request.getTckn()!=null)
+                    {
+                        profile.setTckn(request.getTckn());
+                    }
+                    if(request.getAddress()!=null)
+                    {
+                        profile.setAddress(request.getAddress());
+
+                    }
+                    if(request.getWebsite()!=null)
+                    {
+                        profile.setWebsite(request.getWebsite());
+
+                    }
+                    if(request.getPhoneNumber()!=null)
+                    {
+                        profile.setPhoneNumber(request.getPhoneNumber());
+                    }
+                    if(request.getEmail()!=null)
+                    {
+                        profile.setEmail(request.getEmail());
+                    }
+                    if(request.getUniversity()!=null)
+                    {
+                        profile.setUniversity(request.getUniversity());
+                    }
+                    if(request.getExperiences()!=null)
+                    {
+                        profile.setExperiences(request.getExperiences());
+                    }
+                    if(request.getFollowingTitles()!=null)
+                    {
+                        profile.setFollowingTitles(request.getFollowingTitles());
+                    }
                     profile = profileRepository.save(profile);
                     tempId = profile.getId();
                 }
