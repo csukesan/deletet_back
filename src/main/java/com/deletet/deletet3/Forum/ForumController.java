@@ -1,7 +1,6 @@
 package com.deletet.deletet3.Forum;
 
 
-import com.deletet.deletet3.appuser.AppUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +46,8 @@ public class ForumController {
         forum = forumRepository.save(forum);
         return new ResponseEntity<>(new ForumDTO(forum.getId(), forum.getFullname(), forum.getTitle(), forum.getExplanation(), forum.getBody(), forum.getLanguages(), forum.getDate(), forum.getStatus(), forum.getLikecount(), forum.getUpcount()),HttpStatus.OK);
     }
+
+
 
     @PutMapping("/forum/updatelike/{id}")
     public ResponseEntity<ForumDTO> update(@PathVariable Long id)
@@ -111,6 +112,7 @@ public class ForumController {
 
         return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
     }
+
 
 
 }

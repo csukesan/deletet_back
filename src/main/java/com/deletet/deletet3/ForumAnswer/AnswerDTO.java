@@ -7,23 +7,55 @@ import java.util.Date;
 public class AnswerDTO {
 
     private Long id;
+    private Long userid;
     private String fullname;
     private String question_id;
     private String explanation;
     private String body;
     private String date;
     private String status;
+    private int likecount;
+    private int upcount;
 
-    public AnswerDTO(Long id, String fullname, String question_id, String explanation, String body, String date, String status) {
+
+    public AnswerDTO(Long id, Long userid, String fullname, String question_id, String explanation, String body, String date, String status, int likecount, int upcount) {
 
         this.id = id;
+        this.userid=userid;
         this.fullname = fullname;
         this.question_id = question_id;
         this.explanation = explanation;
         this.body = body;
         this.date = date;
         this.status = status;
+        this.likecount=likecount;
+        this.upcount=upcount;
     }
+
+    public int getLikecount() {
+        return likecount;
+    }
+
+    public void setLikecount(int likecount) {
+        this.likecount = likecount;
+    }
+
+    public int getUpcount() {
+        return upcount;
+    }
+
+    public void setUpcount(int upcount) {
+        this.upcount = upcount;
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
+
 
     public Long getId() {
         return id;
