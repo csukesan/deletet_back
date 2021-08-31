@@ -45,7 +45,7 @@ public class ApplicationController {
             {
                 if(app.getApplicantId().equals(appuser.getId()))
                 {
-                    applicationDTOS.add(new ApplicationDTO(app.getId(),app.getApplicantId(),app.getCompanyId(),app.getCompanyName(),app.getCompanyLocation(), app.getCompanyIcon(), app.getCompanyDesc(), app.getApplicationDate(),app.getWayOfWorking(),app.getAdvertsTitle(),app.getAdvertsDescription(),app.getStatus()));
+                    applicationDTOS.add(new ApplicationDTO(app.getId(),app.getApplicantId(),app.getCompanyId(), app.getAdvertId(), app.getCompanyName(),app.getCompanyLocation(), app.getCompanyIcon(), app.getCompanyDesc(), app.getApplicationDate(),app.getWayOfWorking(),app.getAdvertsTitle(),app.getAdvertsDescription(),app.getStatus()));
                 }
             }
             return new ResponseEntity<>(applicationDTOS, HttpStatus.OK);
@@ -60,9 +60,9 @@ public class ApplicationController {
     @PostMapping("/application/create")
     public ResponseEntity<ApplicationDTO> create(@RequestBody ApplicationDTO request)
     {
-        Application application = new Application(request.getId(), request.getApplicantId(), request.getCompanyId(), request.getCompanyName(), request.getCompanyLocation(), request.getCompanyIcon(), request.getCompanyDesc(), request.getApplicationDate(),request.getWayOfWorking(),request.getAdvertsTitle(),request.getAdvertsDescription(),request.getStatus());
+        Application application = new Application(request.getId(), request.getApplicantId(),request.getCompanyId(), request.getAdvertId(),request.getCompanyName(), request.getCompanyLocation(), request.getCompanyIcon(), request.getCompanyDesc(), request.getApplicationDate(),request.getWayOfWorking(),request.getAdvertsTitle(),request.getAdvertsDescription(),request.getStatus());
         application = applicationRepository.save(application);
-        return new ResponseEntity<>(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyId(),application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(),application.getStatus()),HttpStatus.OK);
+        return new ResponseEntity<>(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyId(), application.getAdvertId(),application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(),application.getStatus()),HttpStatus.OK);
     }
 
 
@@ -79,7 +79,7 @@ public class ApplicationController {
             {
                 if(application.getCompanyId().equals(company.getId()))
                 {
-                    applicationDTOS.add(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyId(),application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(),application.getStatus()));
+                    applicationDTOS.add(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyId(), application.getAdvertId(), application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(),application.getStatus()));
                 }
             }
             return new ResponseEntity<>(applicationDTOS, HttpStatus.OK);

@@ -26,12 +26,16 @@ public class AdvertsController {
     private Company company;
     private final AdvertsRepository advertsRepository;
     private CompanyRepository companyRepository;
+    private ApplicationRepository applicationRepository;
+   // private Application application;
+    private AppUserRepository appUserRepository;
 
 
-
-    public AdvertsController(CompanyRepository companyRepository, AdvertsRepository advertsRepository){
+    public AdvertsController(CompanyRepository companyRepository, AdvertsRepository advertsRepository, ApplicationRepository applicationRepository, AppUserRepository appUserRepository){
         this.companyRepository = companyRepository;
         this.advertsRepository = advertsRepository;
+        this.applicationRepository = applicationRepository;
+        this.appUserRepository = appUserRepository;
     }
 
     @GetMapping(value = "/adverts/readAll")
@@ -55,6 +59,22 @@ public class AdvertsController {
         return new ResponseEntity<>(new AdvertsDTO(advert.getId(), advert.getCategoryId(), advert.getCompanyId(), advert.getCompanyName(),advert.getCompanyLocation(),advert.getCompanyIcon(),advert.getCompanyDesc(),advert.getAdvertsDate(),advert.getWayOfWorking(),advert.getAdvertsAbout(),advert.getAdvertsTitle(),advert.getAdvertsDescription()),HttpStatus.OK);
     }
 
+    @PostMapping("/adverts/check")
+    public boolean checkApplication(@RequestBody CheckRequest request)
+    {
+        List<Application> applications = applicationRepository.findAll();
+        for(Application application : applications )
+        {
+            if(application.getAdvertId()==request.advertid&& application.getApplicantId()==request.userid)
+            {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
     @GetMapping("/adverts/{id}")
     public ResponseEntity<List<AdvertsDTO>> getAdvert(@PathVariable Long id)
     {
@@ -66,7 +86,7 @@ public class AdvertsController {
             List<AdvertsDTO> advertsDTOS = new ArrayList<>();
             for(Adverts advert : adverts)
             {
-                if(advert.getCompanyId().equals(company.getId()))
+                if(advert.getCompanyId()==company.getId())
                 {
                     advertsDTOS.add(new AdvertsDTO(advert.getId(), advert.getCategoryId(), advert.getCompanyId(), advert.getCompanyName(),advert.getCompanyLocation(),advert.getCompanyIcon(),advert.getCompanyDesc(),advert.getAdvertsDate(),advert.getWayOfWorking(),advert.getAdvertsAbout(),advert.getAdvertsTitle(),advert.getAdvertsDescription()));
                 }
