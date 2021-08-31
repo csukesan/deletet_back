@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -28,7 +29,7 @@ public class AnswerController {
         List<AnswerDTO> answerDTOS = new ArrayList<>();
         for(Answer answers : answer)
         {
-            answerDTOS.add(new AnswerDTO(answers.getId(), answers.getFullname(), answers.getQuestion_id(), answers.getExplanation(), answers.getBody(), answers.getDate(), answers.getStatus()));
+            answerDTOS.add(new AnswerDTO(answers.getId(),answers.getUserid(), answers.getFullname(), answers.getQuestion_id(), answers.getExplanation(), answers.getBody(), answers.getDate(), answers.getStatus(),answers.getLikecount(),answers.getUpcount(),answers.isOwner()));
         }
         return new ResponseEntity<>(answerDTOS, HttpStatus.OK);
     }
@@ -40,9 +41,75 @@ public class AnswerController {
         DateTimeFormatter myFormatdate = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDate = mydate.format(myFormatdate);
 
-        Answer answer = new Answer(request.getId(), request.getFullname(), request.getQuestion_id(), request.getExplanation(), request.getBody(), formattedDate, request.getStatus());
+        Answer answer = new Answer(request.getId(),request.getUserid(), request.getFullname(), request.getQuestion_id(), request.getExplanation(), request.getBody(), formattedDate, request.getStatus(),0,0, request.isOwner());
         answer = answerRepository.save(answer);
-        return new ResponseEntity<>(new AnswerDTO(answer.getId(), answer.getFullname(), answer.getQuestion_id(), answer.getExplanation(), answer.getBody(), answer.getDate(), answer.getStatus()),HttpStatus.OK);
+        return new ResponseEntity<>(new AnswerDTO(answer.getId(),answer.getUserid(), answer.getFullname(), answer.getQuestion_id(), answer.getExplanation(), answer.getBody(), answer.getDate(), answer.getStatus(),answer.getLikecount(),answer.getUpcount(),answer.isOwner()),HttpStatus.OK);
     }
+
+    @PutMapping("/answer/updatelike/{id}")
+    public ResponseEntity<AnswerDTO> update(@PathVariable Long id)
+    {
+        Optional<Answer> optionalAnswer = answerRepository.findById(id);
+        if (optionalAnswer.isPresent())
+        {
+            Answer db = optionalAnswer.get();
+            db.setLikecount(db.getLikecount()+1);
+            db = answerRepository.save(db);
+
+            return new ResponseEntity<>(new AnswerDTO(db.getId(),db.getUserid(),db.getFullname(),db.getQuestion_id(),db.getExplanation(),db.getBody(),db.getDate(),db.getStatus(),db.getLikecount(), db.getUpcount(),db.isOwner()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/answer/deletelike/{id}")
+    public ResponseEntity<AnswerDTO> delete(@PathVariable Long id)
+    {
+        Optional<Answer> optionalAnswer = answerRepository.findById(id);
+        if (optionalAnswer.isPresent())
+        {
+            Answer db = optionalAnswer.get();
+            db.setLikecount(db.getLikecount()-1);
+            db = answerRepository.save(db);
+
+            return new ResponseEntity<>(new AnswerDTO(db.getId(),db.getUserid(),db.getFullname(),db.getQuestion_id(),db.getExplanation(),db.getBody(),db.getDate(),db.getStatus(),db.getLikecount(), db.getUpcount(),db.isOwner()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/answer/updateup/{id}")
+    public ResponseEntity<AnswerDTO> update1(@PathVariable Long id)
+    {
+        Optional<Answer> optionalAnswer = answerRepository.findById(id);
+        if (optionalAnswer.isPresent())
+        {
+            Answer db = optionalAnswer.get();
+            db.setLikecount(db.getUpcount()+1);
+            db = answerRepository.save(db);
+
+            return new ResponseEntity<>(new AnswerDTO(db.getId(),db.getUserid(),db.getFullname(),db.getQuestion_id(),db.getExplanation(),db.getBody(),db.getDate(),db.getStatus(),db.getLikecount(), db.getUpcount(),db.isOwner()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/answer/deleteup/{id}")
+    public ResponseEntity<AnswerDTO> delete1(@PathVariable Long id)
+    {
+        Optional<Answer> optionalAnswer = answerRepository.findById(id);
+        if (optionalAnswer.isPresent())
+        {
+            Answer db = optionalAnswer.get();
+            db.setLikecount(db.getUpcount()-1);
+            db = answerRepository.save(db);
+
+            return new ResponseEntity<>(new AnswerDTO(db.getId(),db.getUserid(),db.getFullname(),db.getQuestion_id(),db.getExplanation(),db.getBody(),db.getDate(),db.getStatus(),db.getLikecount(), db.getUpcount(),db.isOwner()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+    }
+
+
 
 }
