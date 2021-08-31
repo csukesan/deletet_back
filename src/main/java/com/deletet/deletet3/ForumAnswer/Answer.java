@@ -29,8 +29,9 @@ public class Answer {
     private String status;
     private int likecount;
     private int upcount;
+    private boolean owner;
 
-    public Answer(Long id, Long userid, String fullname, String question_id, String explanation, String body, String date, String status, int likecount, int upcount){
+    public Answer(Long id, Long userid, String fullname, String question_id, String explanation, String body, String date, String status, int likecount, int upcount, boolean owner){
 
         this.id=id;
         this.userid=userid;
@@ -42,6 +43,7 @@ public class Answer {
         this.status=status;
         this.likecount=likecount;
         this.upcount=upcount;
+        this.owner=owner;
     }
 
 

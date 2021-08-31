@@ -16,9 +16,10 @@ public class AnswerDTO {
     private String status;
     private int likecount;
     private int upcount;
+    private boolean owner;
 
 
-    public AnswerDTO(Long id, Long userid, String fullname, String question_id, String explanation, String body, String date, String status, int likecount, int upcount) {
+    public AnswerDTO(Long id, Long userid, String fullname, String question_id, String explanation, String body, String date, String status, int likecount, int upcount,boolean owner) {
 
         this.id = id;
         this.userid=userid;
@@ -30,6 +31,7 @@ public class AnswerDTO {
         this.status = status;
         this.likecount=likecount;
         this.upcount=upcount;
+        this.owner=owner;
     }
 
     public int getLikecount() {
@@ -42,6 +44,14 @@ public class AnswerDTO {
 
     public int getUpcount() {
         return upcount;
+    }
+
+    public boolean isOwner() {
+        return owner;
+    }
+
+    public void setOwner(boolean owner) {
+        this.owner = owner;
     }
 
     public void setUpcount(int upcount) {
