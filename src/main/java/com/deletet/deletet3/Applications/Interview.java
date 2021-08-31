@@ -34,13 +34,13 @@ public class Interview {
     private String companyOfficer;
     private String companyDepartment;
     private String position;
-    private Date interDate;
+    private String interDate;
     private String location;
     private String ApplicationStatus;
     private String interStatus;
 
 
-    public Interview(String applicantName, Long applicantId, String applicantIcon, Long companyName, Long companyId, String companyIcon, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, Date interDate, String location, String applicationStatus, String interStatus) {
+    public Interview(String applicantName, Long applicantId, String applicantIcon, Long companyName, Long companyId, String companyIcon, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, String interDate, String location, String applicationStatus, String interStatus) {
         this.applicantName = applicantName;
         this.applicantId = applicantId;
         this.applicantIcon = applicantIcon;
@@ -146,11 +146,11 @@ public class Interview {
         this.position = position;
     }
 
-    public Date getInterDate() {
+    public String getInterDate() {
         return interDate;
     }
 
-    public void setInterDate(Date interDate) {
+    public void setInterDate(String interDate) {
         this.interDate = interDate;
     }
 
