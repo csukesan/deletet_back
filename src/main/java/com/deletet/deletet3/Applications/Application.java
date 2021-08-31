@@ -23,6 +23,7 @@ public class Application {
                 generator = "application_sequence")
         private Long id;
         private Long applicantId;
+        private Long companyId;
         private String companyName;
         private String companyLocation;
         private String companyIcon;
@@ -35,9 +36,10 @@ public class Application {
         private String advertsDescription;
         private int status;
 
-        public Application(Long id, Long applicantId,String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, int status) {
+        public Application(Long id, Long applicantId, Long companyId, String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, int status) {
             this.id = id;
             this.applicantId = applicantId;
+            this.companyId = companyId;
             this.companyName = companyName;
             this.companyLocation = companyLocation;
             this.companyIcon = companyIcon;

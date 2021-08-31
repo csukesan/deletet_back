@@ -3,8 +3,7 @@ package com.deletet.deletet3.appuser;
 public class AppUserDTO {
 
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String fullName;
     private String email;
     private String password;
     private AppUserRole appUserRole;
@@ -13,11 +12,10 @@ public class AppUserDTO {
     {
 
     }
-    public AppUserDTO(Long id, String firstName, String lastName, String email, String password, AppUserRole appUserRole)
+    public AppUserDTO(Long id, String fullName, String email, String password, AppUserRole appUserRole)
     {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
@@ -31,20 +29,12 @@ public class AppUserDTO {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFullName(String firstName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {

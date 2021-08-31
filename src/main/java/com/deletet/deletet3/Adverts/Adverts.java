@@ -20,6 +20,7 @@ public class Adverts {
             generator = "advert_sequence")
     private Long id;
     private Long categoryId;
+    private Long companyId;
     private String companyName;
     private String companyLocation;
     private String companyIcon;
@@ -33,9 +34,10 @@ public class Adverts {
     @Column(columnDefinition = "TEXT")
     private String advertsDescription;
 
-    public Adverts(Long id, Long categoryId, String companyName, String companyLocation, String companyIcon, String companyDesc, String advertsDate, String wayOfWorking, String advertsAbout, String advertsTitle, String advertsDescription) {
+    public Adverts(Long id, Long categoryId, Long companyId, String companyName, String companyLocation, String companyIcon, String companyDesc, String advertsDate, String wayOfWorking, String advertsAbout, String advertsTitle, String advertsDescription) {
         this.id = id;
         this.categoryId = categoryId;
+        this.companyId = companyId;
         this.companyName = companyName;
         this.companyLocation = companyLocation;
         this.companyIcon = companyIcon;

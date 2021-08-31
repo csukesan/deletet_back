@@ -1,6 +1,7 @@
 package com.deletet.deletet3.registration;
 
 
+import com.deletet.deletet3.Profile.CompanyProfile;
 import com.deletet.deletet3.Profile.Profile;
 import com.deletet.deletet3.Profile.ProfileDTO;
 import com.deletet.deletet3.Profile.ProfileRepository;
@@ -41,25 +42,32 @@ public class RegistrationService {
         AppUser user;
         if(regRequest.getRole()==1)
         {
-            user = new AppUser(regRequest.getFirstName(),regRequest.getLastName(),regRequest.getEmail(),regRequest.getPassword(), AppUserRole.USER);
+            user = new AppUser(regRequest.getFullName(),regRequest.getEmail(),regRequest.getPassword(), AppUserRole.USER);
         }
         else if(regRequest.getRole()==2)
         {
-            user = new AppUser(regRequest.getFirstName(),regRequest.getLastName(),regRequest.getEmail(),regRequest.getPassword(), AppUserRole.COMPANY);
+            user = new AppUser(regRequest.getFullName(),regRequest.getEmail(),regRequest.getPassword(), AppUserRole.COMPANY);
         }
         else
         {
-          user=  new AppUser(regRequest.getFirstName(),regRequest.getLastName(),regRequest.getEmail(),regRequest.getPassword(), AppUserRole.ADMIN);
+          user=  new AppUser(regRequest.getFullName(),regRequest.getEmail(),regRequest.getPassword(), AppUserRole.ADMIN);
         }
 
         token= appUserService.signUpUser(user);
 
         confirmToken(token);
 
-        String fullName = user.getFirstName()+" " +user.getLastName();
+        if(user.getId()==1)
+        {
+            Profile profile = new Profile(user.getId(),user.getFullName(),user.getEmail());
+            profile = profileRepository.save(profile);
+        }
+        if(user.getId()==2)
+        {
+            CompanyProfile profile = new CompanyProfile(user.getId(),user.getEmail(),user.getFullName());
+        }
 
-        Profile profile = new Profile(user.getId(),fullName,user.getEmail());
-        profile = profileRepository.save(profile);
+
         return ResponseEntity.ok("User registered successfully");
 
     }
@@ -70,7 +78,7 @@ public class RegistrationService {
         AppUser appUser = appUserService.signInUser(logRequest.getEmail(), logRequest.getPassword());
         if(appUser != null)
         {
-            return new ResponseEntity<>(new AppUserDTO(appUser.getId(),appUser.getFirstName(),appUser.getLastName(),appUser.getEmail(),appUser.getPassword(),appUser.getAppUserRole()), HttpStatus.OK);
+            return new ResponseEntity<>(new AppUserDTO(appUser.getId(),appUser.getFullName(),appUser.getEmail(),appUser.getPassword(),appUser.getAppUserRole()), HttpStatus.OK);
         }
         else
         {

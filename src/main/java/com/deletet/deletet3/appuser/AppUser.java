@@ -25,8 +25,7 @@ public class AppUser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
                         generator = "reglog_sequence")
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String fullName;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
@@ -35,13 +34,11 @@ public class AppUser implements UserDetails {
     private Boolean enabled = false;
 
 
-    public AppUser(String firstName,
-                   String lastName,
+    public AppUser(String fullName,
                    String email,
                    String password,
                    AppUserRole appUserRole) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
@@ -64,12 +61,8 @@ public class AppUser implements UserDetails {
         return email;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
+    public String getFullName() {
+        return fullName;
     }
 
     public AppUserRole getAppUserRole() {

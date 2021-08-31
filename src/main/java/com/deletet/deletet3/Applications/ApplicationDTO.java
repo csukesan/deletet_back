@@ -4,6 +4,7 @@ public class ApplicationDTO {
 
     private Long id;
     private Long applicantId;
+    private Long companyId;
     private String companyName;
     private String companyLocation;
     private String companyIcon;
@@ -20,9 +21,10 @@ public class ApplicationDTO {
 
     }
 
-    public ApplicationDTO(Long id, Long applicantId,String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, int status) {
+    public ApplicationDTO(Long id, Long applicantId, Long companyId,String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, int status) {
         this.id = id;
         this.applicantId = applicantId;
+        this.companyId = companyId;
         this.companyName = companyName;
         this.companyLocation = companyLocation;
         this.companyIcon = companyIcon;
@@ -120,5 +122,13 @@ public class ApplicationDTO {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 }
