@@ -33,7 +33,7 @@ public class ProfileController {
             List<Profile> profiles = profileRepository.findAll();
             List<ProfileDTO> profileDTOS = new ArrayList<>();
             for (Profile profile : profiles) {
-                if (profile.getUserId() == appuser.getId()) {
+                if (profile.getUserId().equals(appuser.getId())) {
                     profileDTOS.add(new ProfileDTO(profile.getId(), profile.getUserId(), profile.getImageUrl(), profile.getFullName(), profile.getAbout(),
                             profile.getTckn(), profile.getAddress(), profile.getWebsite(), profile.getPhoneNumber(),
                             profile.getEmail(), profile.getUniversity(), profile.getExperiences(), profile.getFollowingTitles(), profile.getProfilePoints(), profile.getForumPoints()));
@@ -53,7 +53,7 @@ public class ProfileController {
             appuser = appUser.get();
             List<Profile> profiles = profileRepository.findAll();
             for (Profile profile : profiles) {
-                if (profile.getUserId() == appuser.getId()) {
+                if (profile.getUserId().equals(appuser.getId())) {
                     if(request.getImageUrl() != null)
                     {
                         profile.setImageUrl(request.getImageUrl());
@@ -122,7 +122,7 @@ public class ProfileController {
             appuser = appUser.get();
             List<Profile> profiles = profileRepository.findAll();
             for (Profile profile : profiles) {
-                if (profile.getUserId() == appuser.getId()) {
+                if (profile.getUserId().equals(appuser.getId())) {
                     point = profile.calculateProfilePoints(profile);
                 }
             }

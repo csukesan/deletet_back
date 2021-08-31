@@ -57,12 +57,12 @@ public class RegistrationService {
 
         confirmToken(token);
 
-        if(user.getId()==1)
+        if(regRequest.getRole()==1)
         {
             Profile profile = new Profile(user.getId(),user.getFullName(),user.getEmail());
             profile = profileRepository.save(profile);
         }
-        if(user.getId()==2)
+        if(regRequest.getRole()==2)
         {
             CompanyProfile profile = new CompanyProfile(user.getId(),user.getEmail(),user.getFullName());
         }

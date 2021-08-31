@@ -43,7 +43,7 @@ public class ApplicationController {
             List<ApplicationDTO> applicationDTOS = new ArrayList<>();
             for(Application app : application)
             {
-                if(app.getApplicantId()==appuser.getId())
+                if(app.getApplicantId().equals(appuser.getId()))
                 {
                     applicationDTOS.add(new ApplicationDTO(app.getId(),app.getApplicantId(),app.getCompanyId(),app.getCompanyName(),app.getCompanyLocation(), app.getCompanyIcon(), app.getCompanyDesc(), app.getApplicationDate(),app.getWayOfWorking(),app.getAdvertsTitle(),app.getAdvertsDescription(),app.getStatus()));
                 }
@@ -77,7 +77,7 @@ public class ApplicationController {
             List<ApplicationDTO> applicationDTOS = new ArrayList<>();
             for(Application application : applications)
             {
-                if(application.getCompanyId()==company.getId())
+                if(application.getCompanyId().equals(company.getId()))
                 {
                     applicationDTOS.add(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyId(),application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(),application.getStatus()));
                 }
