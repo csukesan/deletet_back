@@ -1,5 +1,10 @@
 package com.deletet.deletet3.ForumAnswer;
 
+import com.deletet.deletet3.Applications.Application;
+import com.deletet.deletet3.Applications.ApplicationDTO;
+import com.deletet.deletet3.Companies.Company;
+import com.deletet.deletet3.Forum.ForumHome;
+import com.deletet.deletet3.Forum.ForumRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +22,12 @@ import java.util.Optional;
 public class AnswerController {
 
     private final AnswerRepository answerRepository;
+    private ForumHome forum;
+    private ForumRepository forumRepository;
 
-    public AnswerController(AnswerRepository answerRepository){
+    public AnswerController(AnswerRepository answerRepository, ForumRepository forumRepository){
         this.answerRepository = answerRepository;
+        this.forumRepository = forumRepository;
     }
 
     @GetMapping(value = "/answer/readAll")
@@ -122,6 +130,29 @@ public class AnswerController {
         return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("answer/read/{id}")
+    public ResponseEntity<List<AnswerDTO>> readAnswer(@PathVariable Long id)
+    {
+        Optional<ForumHome> forumHome = forumRepository.findById(id);
+        if(forumHome.isPresent())
+        {
+            forum = forumHome.get();
+            List<Answer> answers = answerRepository.findAll();
+            List<AnswerDTO> answerDTOS = new ArrayList<>();
+            for(Answer db : answers)
+            {
+                if(db.getQuestion_id().equals(forum.getId()))
+                {
+                    answerDTOS.add(new AnswerDTO(db.getId(),db.getUserid(),db.getFullname(),db.getQuestion_id(),db.getExplanation(),db.getBody(),db.getDate(),db.getStatus(),db.getLikecount(), db.getUpcount(),db.isOwner(), db.getImgUrl()));
+                }
+            }
+            return new ResponseEntity<>(answerDTOS, HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
 }
