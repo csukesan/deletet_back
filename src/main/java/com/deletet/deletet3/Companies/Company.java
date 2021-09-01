@@ -22,6 +22,7 @@ public class Company {
             generator = "company_sequence")
     private Long id;
     private String companyName;
+    @Column(columnDefinition = "TEXT")
     private String companyUrl;
     private String companyDepartment;
     private String establishment;

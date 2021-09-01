@@ -23,6 +23,7 @@ public class Adverts {
     private Long companyId;
     private String companyName;
     private String companyLocation;
+    @Column(columnDefinition = "TEXT")
     private String companyIcon;
     @Column(columnDefinition = "TEXT")
     private String companyDesc;

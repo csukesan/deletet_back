@@ -21,6 +21,7 @@ public class Profile {
             generator = "profile_sequence")
     private Long id;
     private Long userId;
+    @Column(columnDefinition = "TEXT")
     private String imageUrl;
     private String fullName;
     @Column(columnDefinition = "TEXT")

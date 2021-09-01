@@ -21,9 +21,11 @@ public class News {
             generator = "news_sequence")
     private Long id;
     private String companyName;
+    @Column(columnDefinition = "TEXT")
     private String companyIconUrl;
     @Column(columnDefinition = "TEXT")
     private String newsDescription;
+    @Column(columnDefinition = "TEXT")
     private String newsImage;
     private int likeCount;
     private int commentCount;

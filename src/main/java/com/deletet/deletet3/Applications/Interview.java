@@ -25,11 +25,14 @@ public class Interview {
     private Long id;
     private String applicantName;
     private Long applicantId;
+    @Column(columnDefinition = "TEXT")
     private String applicantIcon;
     private Long companyName;
     private Long companyId;
+    @Column(columnDefinition = "TEXT")
     private String companyIcon;
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String applicationDesc;
     private String companyOfficer;
     private String companyDepartment;
