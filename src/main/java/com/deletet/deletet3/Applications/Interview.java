@@ -27,7 +27,7 @@ public class Interview {
     private Long applicantId;
     @Column(columnDefinition = "TEXT")
     private String applicantIcon;
-    private Long companyName;
+    private String companyName;
     private Long companyId;
     @Column(columnDefinition = "TEXT")
     private String companyIcon;
@@ -39,11 +39,11 @@ public class Interview {
     private String position;
     private String interDate;
     private String location;
-    private String ApplicationStatus;
+    private String applicationStatus;
     private String interStatus;
 
 
-    public Interview(String applicantName, Long applicantId, String applicantIcon, Long companyName, Long companyId, String companyIcon, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, String interDate, String location, String applicationStatus, String interStatus) {
+    public Interview(String applicantName, Long applicantId, String applicantIcon, String companyName, Long companyId, String companyIcon, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, String interDate, String location, String applicationStatus, String interStatus) {
         this.applicantName = applicantName;
         this.applicantId = applicantId;
         this.applicantIcon = applicantIcon;
@@ -57,7 +57,7 @@ public class Interview {
         this.position = position;
         this.interDate = interDate;
         this.location = location;
-        ApplicationStatus = applicationStatus;
+        this.applicationStatus = applicationStatus;
         this.interStatus = interStatus;
     }
 
@@ -85,11 +85,11 @@ public class Interview {
         this.applicantIcon = applicantIcon;
     }
 
-    public Long getCompanyName() {
+    public String getCompanyName() {
         return companyName;
     }
 
-    public void setCompanyName(Long companyName) {
+    public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
 
@@ -166,11 +166,11 @@ public class Interview {
     }
 
     public String getApplicationStatus() {
-        return ApplicationStatus;
+        return applicationStatus;
     }
 
     public void setApplicationStatus(String applicationStatus) {
-        ApplicationStatus = applicationStatus;
+        applicationStatus = applicationStatus;
     }
 
     public String getInterStatus() {

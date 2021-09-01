@@ -8,7 +8,7 @@ public class InterviewDTO {
     private String applicantName;
     private Long applicantId;
     private String applicantIcon;
-    private Long companyName;
+    private String companyName;
     private Long companyId;
     private String companyIcon;
     private String title;
@@ -24,7 +24,7 @@ public class InterviewDTO {
     public InterviewDTO() {
     }
 
-    public InterviewDTO(Long id, String applicantName, Long applicantId, String applicantIcon, Long companyName, Long companyId, String companyIcon, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, String interDate, String location, String applicationStatus, String interStatus) {
+    public InterviewDTO(Long id, String applicantName, Long applicantId, String applicantIcon, String companyName, Long companyId, String companyIcon, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, String interDate, String location, String applicationStatus, String interStatus) {
         this.id=id;
         this.applicantName = applicantName;
         this.applicantId = applicantId;
@@ -76,11 +76,11 @@ public class InterviewDTO {
         this.applicantIcon = applicantIcon;
     }
 
-    public Long getCompanyName() {
+    public String getCompanyName() {
         return companyName;
     }
 
-    public void setCompanyName(Long companyName) {
+    public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
 

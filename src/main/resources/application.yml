@@ -6,7 +6,7 @@ server:
 
 spring:
   datasource:
-    password: furkan1905
+    password: s83SX
     url: jdbc:postgresql://localhost:5432/forum
     username: postgres
   jpa:

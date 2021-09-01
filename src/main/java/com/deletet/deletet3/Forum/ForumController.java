@@ -35,6 +35,19 @@ public class ForumController {
         return new ResponseEntity<>(forumDTOS, HttpStatus.OK);
     }
 
+    @GetMapping("/forum/read/{id}")
+    public ResponseEntity<ForumDTO> readForum(@PathVariable Long id)
+    {
+        Optional<ForumHome> optionalForumHome = forumRepository.findById(id);
+        if (optionalForumHome.isPresent())
+        {
+            ForumHome db = optionalForumHome.get();
+            db = forumRepository.save(db);
+            return new ResponseEntity<>(new ForumDTO(db.getId(),db.getFullname(),db.getTitle(),db.getExplanation(),db.getBody(),db.getLanguages(),db.getDate(),db.getStatus(),db.getLikecount(), db.getUpcount(), db.getImgUrl()), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+    }
+
     @PostMapping("/forum/create")
     public ResponseEntity<ForumDTO> create(@RequestBody ForumDTO request)
     {
