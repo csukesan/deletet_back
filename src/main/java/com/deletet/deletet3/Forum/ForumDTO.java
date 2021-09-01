@@ -14,6 +14,7 @@ public class ForumDTO {
     private String status;
     private int likecount;
     private int upcount;
+    private String imgUrl;
 
     public int getLikecount() {
         return likecount;
@@ -33,6 +34,14 @@ public class ForumDTO {
 
     public Long getId() {
         return id;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public void setId(Long id) {
@@ -95,7 +104,7 @@ public class ForumDTO {
         this.status = status;
     }
 
-    public ForumDTO(Long id, String fullname, String title, String explanation, String body, String languages, String date, String status, int likecount, int upcount) {
+    public ForumDTO(Long id, String fullname, String title, String explanation, String body, String languages, String date, String status, int likecount, int upcount,String imgUrl) {
 
         this.id = id;
         this.fullname = fullname;
@@ -107,6 +116,7 @@ public class ForumDTO {
         this.status = status;
         this.likecount=likecount;
         this.upcount=upcount;
+        this.imgUrl=imgUrl;
     }
 
 

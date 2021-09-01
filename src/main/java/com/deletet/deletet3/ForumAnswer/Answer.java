@@ -30,8 +30,9 @@ public class Answer {
     private int likecount;
     private int upcount;
     private boolean owner;
+    private String imgUrl;
 
-    public Answer(Long id, Long userid, String fullname, String question_id, String explanation, String body, String date, String status, int likecount, int upcount, boolean owner){
+    public Answer(Long id, Long userid, String fullname, String question_id, String explanation, String body, String date, String status, int likecount, int upcount, boolean owner, String imgUrl){
 
         this.id=id;
         this.userid=userid;
@@ -44,6 +45,7 @@ public class Answer {
         this.likecount=likecount;
         this.upcount=upcount;
         this.owner=owner;
+        this.imgUrl=imgUrl;
     }
 
 

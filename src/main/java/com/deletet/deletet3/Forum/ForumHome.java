@@ -31,8 +31,9 @@ public class ForumHome {
     private String status;
     private int likecount;
     private int upcount;
+    private String imgUrl;
 
-public ForumHome(Long id, String fullname, String title, String explanation, String body, String languages, String date, String status, int likecount, int upcount){
+public ForumHome(Long id, String fullname, String title, String explanation, String body, String languages, String date, String status, int likecount, int upcount, String imgUrl){
 
     this.id=id;
     this.fullname=fullname;
@@ -44,6 +45,7 @@ public ForumHome(Long id, String fullname, String title, String explanation, Str
     this.status=status;
     this.likecount=likecount;
     this.upcount=upcount;
+    this.imgUrl=imgUrl;
 }
 
 
