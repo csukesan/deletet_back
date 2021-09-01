@@ -55,7 +55,6 @@ public class AdvertsController {
     {
         Adverts advert = new Adverts(request.getId(), request.getCategoryId(), request.getCompanyId(), request.getCompanyName(), request.getCompanyLocation(), request.getCompanyIcon(), request.getCompanyDesc(), request.getAdvertsDate(),request.getWayOfWorking(),request.getAdvertsAbout(),request.getAdvertsTitle(),request.getAdvertsDescription());
         advert = advertsRepository.save(advert);
-        String [] arr = new String [11];
         return new ResponseEntity<>(new AdvertsDTO(advert.getId(), advert.getCategoryId(), advert.getCompanyId(), advert.getCompanyName(),advert.getCompanyLocation(),advert.getCompanyIcon(),advert.getCompanyDesc(),advert.getAdvertsDate(),advert.getWayOfWorking(),advert.getAdvertsAbout(),advert.getAdvertsTitle(),advert.getAdvertsDescription()),HttpStatus.OK);
     }
 
