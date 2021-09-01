@@ -30,7 +30,7 @@ public class ForumController {
         List<ForumDTO> forumDTOS = new ArrayList<>();
         for(ForumHome forums : forum)
         {
-            forumDTOS.add(new ForumDTO(forums.getId(), forums.getFullname(), forums.getTitle(), forums.getExplanation(), forums.getBody(), forums.getLanguages(), forums.getDate(), forums.getStatus(), forums.getLikecount(), forums.getUpcount()));
+            forumDTOS.add(new ForumDTO(forums.getId(), forums.getFullname(), forums.getTitle(), forums.getExplanation(), forums.getBody(), forums.getLanguages(), forums.getDate(), forums.getStatus(), forums.getLikecount(), forums.getUpcount(), forums.getImgUrl()));
         }
         return new ResponseEntity<>(forumDTOS, HttpStatus.OK);
     }
@@ -42,9 +42,9 @@ public class ForumController {
         DateTimeFormatter myFormatdate = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDate = mydate.format(myFormatdate);
 
-        ForumHome forum = new ForumHome(request.getId(), request.getFullname(), request.getTitle(), request.getExplanation(), request.getBody(), request.getLanguages(), formattedDate, request.getStatus(), 0,0);
+        ForumHome forum = new ForumHome(request.getId(), request.getFullname(), request.getTitle(), request.getExplanation(), request.getBody(), request.getLanguages(), formattedDate, request.getStatus(), 0,0, request.getImgUrl());
         forum = forumRepository.save(forum);
-        return new ResponseEntity<>(new ForumDTO(forum.getId(), forum.getFullname(), forum.getTitle(), forum.getExplanation(), forum.getBody(), forum.getLanguages(), forum.getDate(), forum.getStatus(), forum.getLikecount(), forum.getUpcount()),HttpStatus.OK);
+        return new ResponseEntity<>(new ForumDTO(forum.getId(), forum.getFullname(), forum.getTitle(), forum.getExplanation(), forum.getBody(), forum.getLanguages(), forum.getDate(), forum.getStatus(), forum.getLikecount(), forum.getUpcount(),forum.getImgUrl()),HttpStatus.OK);
     }
 
 
@@ -59,7 +59,7 @@ public class ForumController {
             db.setLikecount(db.getLikecount()+1);
             db = forumRepository.save(db);
 
-            return new ResponseEntity<>(new ForumDTO(db.getId(),db.getFullname(),db.getTitle(),db.getExplanation(),db.getBody(),db.getLanguages(),db.getDate(),db.getStatus(),db.getLikecount(), db.getUpcount()), HttpStatus.OK);
+            return new ResponseEntity<>(new ForumDTO(db.getId(),db.getFullname(),db.getTitle(),db.getExplanation(),db.getBody(),db.getLanguages(),db.getDate(),db.getStatus(),db.getLikecount(), db.getUpcount(), db.getImgUrl()), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
@@ -75,7 +75,7 @@ public class ForumController {
             db.setLikecount(db.getLikecount()-1);
             db = forumRepository.save(db);
 
-            return new ResponseEntity<>(new ForumDTO(db.getId(),db.getFullname(),db.getTitle(),db.getExplanation(),db.getBody(),db.getLanguages(),db.getDate(),db.getStatus(), db.getLikecount(), db.getUpcount()), HttpStatus.OK);
+            return new ResponseEntity<>(new ForumDTO(db.getId(),db.getFullname(),db.getTitle(),db.getExplanation(),db.getBody(),db.getLanguages(),db.getDate(),db.getStatus(), db.getLikecount(), db.getUpcount(),db.getImgUrl()), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
@@ -91,7 +91,7 @@ public class ForumController {
             db.setUpcount(db.getUpcount()+1);
             db = forumRepository.save(db);
 
-            return new ResponseEntity<>(new ForumDTO(db.getId(),db.getFullname(),db.getTitle(),db.getExplanation(),db.getBody(),db.getLanguages(),db.getDate(),db.getStatus(), db.getLikecount(), db.getUpcount()), HttpStatus.OK);
+            return new ResponseEntity<>(new ForumDTO(db.getId(),db.getFullname(),db.getTitle(),db.getExplanation(),db.getBody(),db.getLanguages(),db.getDate(),db.getStatus(), db.getLikecount(), db.getUpcount(),db.getImgUrl()), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
@@ -107,13 +107,23 @@ public class ForumController {
             db.setUpcount(db.getUpcount()-1);
             db = forumRepository.save(db);
 
-            return new ResponseEntity<>(new ForumDTO(db.getId(),db.getFullname(),db.getTitle(),db.getExplanation(),db.getBody(),db.getLanguages(),db.getDate(),db.getStatus(), db.getLikecount(), db.getUpcount()), HttpStatus.OK);
+            return new ResponseEntity<>(new ForumDTO(db.getId(),db.getFullname(),db.getTitle(),db.getExplanation(),db.getBody(),db.getLanguages(),db.getDate(),db.getStatus(), db.getLikecount(), db.getUpcount(), db.getImgUrl()), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
     }
 
-
+    @DeleteMapping("forum/delete/{id}")
+    public ResponseEntity<Boolean> deleteforum(@PathVariable Long id)
+    {
+        Optional<ForumHome> optionalForumHome = forumRepository.findById(id);
+        if(optionalForumHome.isPresent())
+        {
+            forumRepository.delete(optionalForumHome.get());
+            return new ResponseEntity<>(true,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
+    }
 
 }
 
