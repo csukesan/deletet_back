@@ -18,7 +18,7 @@ public class InterviewDTO {
     private String position;
     private String interDate;
     private String location;
-    private String ApplicationStatus;
+    private String applicationStatus;
     private String interStatus;
 
     public InterviewDTO() {
@@ -39,7 +39,7 @@ public class InterviewDTO {
         this.position = position;
         this.interDate = interDate;
         this.location = location;
-        ApplicationStatus = applicationStatus;
+        this.applicationStatus = applicationStatus;
         this.interStatus = interStatus;
     }
 
@@ -157,11 +157,11 @@ public class InterviewDTO {
     }
 
     public String getApplicationStatus() {
-        return ApplicationStatus;
+        return applicationStatus;
     }
 
     public void setApplicationStatus(String applicationStatus) {
-        ApplicationStatus = applicationStatus;
+        applicationStatus = applicationStatus;
     }
 
     public String getInterStatus() {

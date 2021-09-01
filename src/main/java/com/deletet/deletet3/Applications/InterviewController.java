@@ -84,6 +84,19 @@ public class InterviewController {
         }
     }
 
+    @PostMapping("/interview/create")
+    public ResponseEntity<InterviewDTO> create(@RequestBody InterviewDTO request)
+    {
+        Interview interview = new Interview(request.getApplicantName(),request.getApplicantId(),request.getApplicantIcon(),request.getCompanyName(),
+                request.getCompanyId(),request.getCompanyIcon(),request.getTitle(),request.getApplicationDesc(),request.getCompanyOfficer(),request.getCompanyDepartment(),
+                request.getPosition(),request.getInterDate(),request.getLocation(),request.getApplicationStatus(),request.getInterStatus());
+        interview = InterviewRepository.save(interview);
+        return new ResponseEntity<>(new InterviewDTO(interview.getId(), interview.getApplicantName(), interview.getApplicantId(),interview.getApplicantIcon(), interview.getCompanyName(),
+                interview.getCompanyId(), interview.getCompanyIcon(),interview.getTitle(),interview.getApplicationDesc(), interview.getCompanyOfficer(), interview.getCompanyDepartment(),
+                interview.getPosition(),interview.getInterDate(),interview.getLocation(),interview.getApplicationStatus(), interview.getInterStatus()), HttpStatus.OK);
+
+    }
+
 
 
 
