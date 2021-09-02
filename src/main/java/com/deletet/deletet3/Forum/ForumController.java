@@ -55,6 +55,7 @@ public class ForumController {
         DateTimeFormatter myFormatdate = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDate = mydate.format(myFormatdate);
 
+
         ForumHome forum = new ForumHome(request.getId(), request.getFullname(), request.getTitle(), request.getExplanation(), request.getBody(), request.getLanguages(), formattedDate, request.getStatus(), 0,0, request.getImgUrl());
         forum = forumRepository.save(forum);
         return new ResponseEntity<>(new ForumDTO(forum.getId(), forum.getFullname(), forum.getTitle(), forum.getExplanation(), forum.getBody(), forum.getLanguages(), forum.getDate(), forum.getStatus(), forum.getLikecount(), forum.getUpcount(),forum.getImgUrl()),HttpStatus.OK);

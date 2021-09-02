@@ -143,8 +143,6 @@ public class AnswerController {
             {
                 if(db.getQuestion_id()==id)
                 {
-                    System.out.println("deneme");
-
                     answerDTOS.add(new AnswerDTO(db.getId(),db.getUserid(),db.getFullname(),db.getQuestion_id(),db.getExplanation(),db.getBody(),db.getDate(),db.getStatus(),db.getLikecount(), db.getUpcount(),db.isOwner(), db.getImgUrl()));
                 }
             }
