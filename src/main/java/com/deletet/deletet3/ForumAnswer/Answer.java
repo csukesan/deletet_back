@@ -22,7 +22,7 @@ public class Answer {
     private Long id;
     private Long userid;
     private String fullname;
-    private String question_id;
+    private Long question_id;
     @Column(columnDefinition = "TEXT")
     private String explanation;
     @Column(columnDefinition = "TEXT")
@@ -35,7 +35,7 @@ public class Answer {
     @Column(columnDefinition = "TEXT")
     private String imgUrl;
 
-    public Answer(Long id, Long userid, String fullname, String question_id, String explanation, String body, String date, String status, int likecount, int upcount, boolean owner, String imgUrl){
+    public Answer(Long id, Long userid, String fullname, Long question_id, String explanation, String body, String date, String status, int likecount, int upcount, boolean owner, String imgUrl){
 
         this.id=id;
         this.userid=userid;

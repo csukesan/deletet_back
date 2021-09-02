@@ -9,7 +9,7 @@ public class AnswerDTO {
     private Long id;
     private Long userid;
     private String fullname;
-    private String question_id;
+    private Long question_id;
     private String explanation;
     private String body;
     private String date;
@@ -20,7 +20,7 @@ public class AnswerDTO {
     private String imgUrl;
 
 
-    public AnswerDTO(Long id, Long userid, String fullname, String question_id, String explanation, String body, String date, String status, int likecount, int upcount,boolean owner,String imgUrl) {
+    public AnswerDTO(Long id, Long userid, String fullname, Long question_id, String explanation, String body, String date, String status, int likecount, int upcount,boolean owner,String imgUrl) {
 
         this.id = id;
         this.userid=userid;
@@ -93,11 +93,11 @@ public class AnswerDTO {
         this.fullname = fullname;
     }
 
-    public String getQuestion_id() {
+    public Long getQuestion_id() {
         return question_id;
     }
 
-    public void setQuestion_id(String question_id) {
+    public void setQuestion_id(Long question_id) {
         this.question_id = question_id;
     }
 

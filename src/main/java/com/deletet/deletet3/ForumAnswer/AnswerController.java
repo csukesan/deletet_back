@@ -141,8 +141,10 @@ public class AnswerController {
             List<AnswerDTO> answerDTOS = new ArrayList<>();
             for(Answer db : answers)
             {
-                if(db.getQuestion_id().equals(forum.getId()))
+                if(db.getQuestion_id()==id)
                 {
+                    System.out.println("deneme");
+
                     answerDTOS.add(new AnswerDTO(db.getId(),db.getUserid(),db.getFullname(),db.getQuestion_id(),db.getExplanation(),db.getBody(),db.getDate(),db.getStatus(),db.getLikecount(), db.getUpcount(),db.isOwner(), db.getImgUrl()));
                 }
             }
