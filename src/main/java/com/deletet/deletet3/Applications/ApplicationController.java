@@ -108,6 +108,17 @@ public class ApplicationController {
         }
     }
 
+    @PutMapping("/application/update/{id}")
+    public ResponseEntity<Application> updateStatus(@RequestBody ApplicationDTO request, @PathVariable Long id)
+    {
+        Optional<Application> application = applicationRepository.findById(id);
+        Application app = application.get();
+        app.setStatus(request.getStatus());
+
+        return new ResponseEntity<>(app,HttpStatus.OK);
+
+    }
+
 }
 
 

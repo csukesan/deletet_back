@@ -47,6 +47,11 @@ public class ApplicationDTO {
         this.status = status;
     }
 
+    public ApplicationDTO(int status)
+    {
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }
