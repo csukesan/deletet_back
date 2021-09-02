@@ -9,6 +9,7 @@ import com.deletet.deletet3.appuser.*;
 import com.deletet.deletet3.registration.token.ConfirmationToken;
 import com.deletet.deletet3.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +31,8 @@ public class RegistrationService {
 
 
 
-    public ResponseEntity<?> register(RegistrationRequest regRequest) {
+    public ResponseEntity<AppUser> register(RegistrationRequest regRequest) {
+
         boolean isValidEmail = emailValidator.test(regRequest.getEmail());
         if(!isValidEmail)
         {
@@ -68,7 +70,7 @@ public class RegistrationService {
         }
 
 
-        return ResponseEntity.ok("User registered successfully");
+        return new ResponseEntity<>(user, HttpStatus.OK);
 
     }
 

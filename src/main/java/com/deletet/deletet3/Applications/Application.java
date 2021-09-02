@@ -36,10 +36,10 @@ public class Application {
         private String advertsTitle;
         @Column(columnDefinition = "TEXT")
         private String advertsDescription;
+        private String advertsAbout;
         private int status;
 
-        public Application(Long id, Long applicantId, Long companyId, Long advertId, String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, int status) {
-            this.id = id;
+        public Application(Long applicantId, Long companyId, Long advertId, String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, String advertsAbout, int status) {
             this.applicantId = applicantId;
             this.companyId = companyId;
             this.advertId = advertId;
@@ -51,7 +51,15 @@ public class Application {
             this.wayOfWorking = wayOfWorking;
             this.advertsTitle = advertsTitle;
             this.advertsDescription = advertsDescription;
+            this.advertsAbout = advertsAbout;
             this.status = status;
         }
+
+    public Application(Long applicantId, Long companyId, Long advertId, int status) {
+        this.applicantId = applicantId;
+        this.companyId = companyId;
+        this.advertId = advertId;
+        this.status = status;
     }
+}
 

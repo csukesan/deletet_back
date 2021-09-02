@@ -1,6 +1,5 @@
 package com.deletet.deletet3.Applications;
 
-import java.util.Date;
 
 public class InterviewDTO {
 
@@ -11,6 +10,7 @@ public class InterviewDTO {
     private String companyName;
     private Long companyId;
     private String companyIcon;
+    private Long applicationId;
     private String title;
     private String applicationDesc;
     private String companyOfficer;
@@ -24,7 +24,7 @@ public class InterviewDTO {
     public InterviewDTO() {
     }
 
-    public InterviewDTO(Long id, String applicantName, Long applicantId, String applicantIcon, String companyName, Long companyId, String companyIcon, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, String interDate, String location, String applicationStatus, String interStatus) {
+    public InterviewDTO(Long id, String applicantName, Long applicantId, String applicantIcon, String companyName, Long companyId, String companyIcon, Long applicationId, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, String interDate, String location, String applicationStatus, String interStatus) {
         this.id=id;
         this.applicantName = applicantName;
         this.applicantId = applicantId;
@@ -32,6 +32,7 @@ public class InterviewDTO {
         this.companyName = companyName;
         this.companyId = companyId;
         this.companyIcon = companyIcon;
+        this.applicationId = applicationId;
         this.title = title;
         this.applicationDesc = applicationDesc;
         this.companyOfficer = companyOfficer;
@@ -43,6 +44,17 @@ public class InterviewDTO {
         this.interStatus = interStatus;
     }
 
+    public InterviewDTO(Long applicantId, Long companyId, Long applicationId, String companyOfficer, String companyDepartment, String position, String interDate, String applicationStatus, String interStatus) {
+        this.applicantId = applicantId;
+        this.companyId = companyId;
+        this.applicationId = applicationId;
+        this.companyOfficer = companyOfficer;
+        this.companyDepartment = companyDepartment;
+        this.position = position;
+        this.interDate = interDate;
+        this.applicationStatus = applicationStatus;
+        this.interStatus = interStatus;
+    }
 
     public Long getId() {
         return id;
@@ -98,6 +110,14 @@ public class InterviewDTO {
 
     public void setCompanyIcon(String companyIcon) {
         this.companyIcon = companyIcon;
+    }
+
+    public Long getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
     }
 
     public String getTitle() {

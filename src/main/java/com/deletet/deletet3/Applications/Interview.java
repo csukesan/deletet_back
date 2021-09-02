@@ -31,6 +31,7 @@ public class Interview {
     private Long companyId;
     @Column(columnDefinition = "TEXT")
     private String companyIcon;
+    private Long applicationId;
     private String title;
     @Column(columnDefinition = "TEXT")
     private String applicationDesc;
@@ -43,13 +44,14 @@ public class Interview {
     private String interStatus;
 
 
-    public Interview(String applicantName, Long applicantId, String applicantIcon, String companyName, Long companyId, String companyIcon, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, String interDate, String location, String applicationStatus, String interStatus) {
+    public Interview(String applicantName, Long applicantId, String applicantIcon, String companyName, Long companyId, String companyIcon, Long applicationId, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, String interDate, String location, String applicationStatus, String interStatus) {
         this.applicantName = applicantName;
         this.applicantId = applicantId;
         this.applicantIcon = applicantIcon;
         this.companyName = companyName;
         this.companyId = companyId;
         this.companyIcon = companyIcon;
+        this.applicationId = applicationId;
         this.title = title;
         this.applicationDesc = applicationDesc;
         this.companyOfficer = companyOfficer;
@@ -87,6 +89,14 @@ public class Interview {
 
     public String getCompanyName() {
         return companyName;
+    }
+
+    public Long getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
     }
 
     public void setCompanyName(String companyName) {

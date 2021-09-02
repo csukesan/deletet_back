@@ -53,7 +53,9 @@ public class AdvertsController {
     @PostMapping("/adverts/create")
     public ResponseEntity<AdvertsDTO> create(@RequestBody AdvertsDTO request)
     {
-        Adverts advert = new Adverts(request.getId(), request.getCategoryId(), request.getCompanyId(), request.getCompanyName(), request.getCompanyLocation(), request.getCompanyIcon(), request.getCompanyDesc(), request.getAdvertsDate(),request.getWayOfWorking(),request.getAdvertsAbout(),request.getAdvertsTitle(),request.getAdvertsDescription());
+        Optional<Company> tempCompany = companyRepository.findById(request.getCompanyId());
+        Company company = tempCompany.get();
+        Adverts advert = new Adverts(request.getCategoryId(), request.getCompanyId(), company.getCompanyName(), company.getAddress(), company.getCompanyUrl(), company.getCompanyAbout(), request.getAdvertsDate(),request.getWayOfWorking(),request.getAdvertsAbout(),request.getAdvertsTitle(),request.getAdvertsDescription());
         advert = advertsRepository.save(advert);
         return new ResponseEntity<>(new AdvertsDTO(advert.getId(), advert.getCategoryId(), advert.getCompanyId(), advert.getCompanyName(),advert.getCompanyLocation(),advert.getCompanyIcon(),advert.getCompanyDesc(),advert.getAdvertsDate(),advert.getWayOfWorking(),advert.getAdvertsAbout(),advert.getAdvertsTitle(),advert.getAdvertsDescription()),HttpStatus.OK);
     }

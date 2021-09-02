@@ -3,6 +3,9 @@ package com.deletet.deletet3.Applications;
 
 import com.deletet.deletet3.Companies.Company;
 import com.deletet.deletet3.Companies.CompanyRepository;
+import com.deletet.deletet3.Profile.Profile;
+import com.deletet.deletet3.Profile.ProfileDTO;
+import com.deletet.deletet3.Profile.ProfileRepository;
 import com.deletet.deletet3.appuser.AppUser;
 import com.deletet.deletet3.appuser.AppUserRepository;
 import org.springframework.http.HttpStatus;
@@ -23,13 +26,17 @@ public class InterviewController {
     private final InterviewRepository InterviewRepository;
     private final AppUserRepository appUserRepository;
     private final CompanyRepository companyRepository;
+    private final ProfileRepository profileRepository;
+    private final ApplicationRepository applicationRepository;
     private Company company;
     private AppUser appuser;
 
-    public InterviewController(InterviewRepository interviewRepository, AppUserRepository appUserRepository, CompanyRepository companyRepository){
+    public InterviewController(InterviewRepository interviewRepository, AppUserRepository appUserRepository, CompanyRepository companyRepository, ProfileRepository profileRepository, ApplicationRepository applicationRepository){
         this.InterviewRepository = interviewRepository;
         this.appUserRepository = appUserRepository;
         this.companyRepository = companyRepository;
+        this.profileRepository = profileRepository;
+        this.applicationRepository = applicationRepository;
     }
 
     @GetMapping("/interview/company/{id}")
@@ -46,7 +53,7 @@ public class InterviewController {
                 if(interview.getCompanyId()==company.getId())
                 {
                     interviewDTOS.add(new InterviewDTO(interview.getId(), interview.getApplicantName(), interview.getApplicantId(),interview.getApplicantIcon(),interview.getCompanyName(),interview.getCompanyId(),interview.getCompanyIcon(),
-                            interview.getTitle(), interview.getApplicationDesc(),interview.getCompanyOfficer(),interview.getCompanyDepartment(),interview.getPosition(),
+                            interview.getApplicationId(),interview.getTitle(), interview.getApplicationDesc(),interview.getCompanyOfficer(),interview.getCompanyDepartment(),interview.getPosition(),
                             interview.getInterDate(),interview.getLocation(),interview.getApplicationStatus(),interview.getInterStatus()));
                 }
             }
@@ -72,7 +79,7 @@ public class InterviewController {
                 if(interview.getApplicantId()==appuser.getId())
                 {
                     interviewDTOS.add(new InterviewDTO(interview.getId(), interview.getApplicantName(), interview.getApplicantId(),interview.getApplicantIcon(),interview.getCompanyName(),interview.getCompanyId(),interview.getCompanyIcon(),
-                            interview.getTitle(), interview.getApplicationDesc(),interview.getCompanyOfficer(),interview.getCompanyDepartment(),interview.getPosition(),
+                            interview.getApplicationId(),interview.getTitle(), interview.getApplicationDesc(),interview.getCompanyOfficer(),interview.getCompanyDepartment(),interview.getPosition(),
                             interview.getInterDate(),interview.getLocation(),interview.getApplicationStatus(),interview.getInterStatus()));
                 }
             }
@@ -87,12 +94,27 @@ public class InterviewController {
     @PostMapping("/interview/create")
     public ResponseEntity<InterviewDTO> create(@RequestBody InterviewDTO request)
     {
-        Interview interview = new Interview(request.getApplicantName(),request.getApplicantId(),request.getApplicantIcon(),request.getCompanyName(),
-                request.getCompanyId(),request.getCompanyIcon(),request.getTitle(),request.getApplicationDesc(),request.getCompanyOfficer(),request.getCompanyDepartment(),
-                request.getPosition(),request.getInterDate(),request.getLocation(),request.getApplicationStatus(),request.getInterStatus());
+        Optional<Company> tempCompany = companyRepository.findById(request.getCompanyId());
+        Company company = tempCompany.get();
+        Optional<AppUser> tempUser = appUserRepository.findById(request.getApplicantId());
+        AppUser appuser = tempUser.get();
+        Optional<Application> tempApp = applicationRepository.findById(request.getApplicantId());
+        Application application = tempApp.get();
+        Profile profile = null;
+        List<Profile> profiles = profileRepository.findAll();
+        for(Profile tempProfile : profiles)
+        {
+            if(tempProfile.getUserId().equals(request.getApplicantId()))
+            {
+                profile = tempProfile;
+            }
+        }
+        Interview interview = new Interview(profile.getFullName(),request.getApplicantId(),profile.getImageUrl(),company.getCompanyName(),
+                request.getCompanyId(),company.getCompanyUrl(),request.getApplicationId(),application.getAdvertsTitle(),application.getAdvertsDescription(),request.getCompanyOfficer(),request.getCompanyDepartment(),
+                request.getPosition(),request.getInterDate(),application.getCompanyLocation(),request.getApplicationStatus(),request.getInterStatus());
         interview = InterviewRepository.save(interview);
         return new ResponseEntity<>(new InterviewDTO(interview.getId(), interview.getApplicantName(), interview.getApplicantId(),interview.getApplicantIcon(), interview.getCompanyName(),
-                interview.getCompanyId(), interview.getCompanyIcon(),interview.getTitle(),interview.getApplicationDesc(), interview.getCompanyOfficer(), interview.getCompanyDepartment(),
+                interview.getCompanyId(), interview.getCompanyIcon(),request.getApplicationId(),interview.getTitle(),interview.getApplicationDesc(), interview.getCompanyOfficer(), interview.getCompanyDepartment(),
                 interview.getPosition(),interview.getInterDate(),interview.getLocation(),interview.getApplicationStatus(), interview.getInterStatus()), HttpStatus.OK);
 
     }

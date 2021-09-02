@@ -35,7 +35,7 @@ public class Adverts {
     @Column(columnDefinition = "TEXT")
     private String advertsDescription;
 
-    public Adverts(Long id, Long categoryId, Long companyId, String companyName, String companyLocation, String companyIcon, String companyDesc, String advertsDate, String wayOfWorking, String advertsAbout, String advertsTitle, String advertsDescription) {
+    public Adverts(Long categoryId, Long companyId, String companyName, String companyLocation, String companyIcon, String companyDesc, String advertsDate, String wayOfWorking, String advertsAbout, String advertsTitle, String advertsDescription) {
         this.id = id;
         this.categoryId = categoryId;
         this.companyId = companyId;
@@ -43,6 +43,16 @@ public class Adverts {
         this.companyLocation = companyLocation;
         this.companyIcon = companyIcon;
         this.companyDesc = companyDesc;
+        this.advertsDate = advertsDate;
+        this.wayOfWorking = wayOfWorking;
+        this.advertsAbout = advertsAbout;
+        this.advertsTitle = advertsTitle;
+        this.advertsDescription = advertsDescription;
+    }
+
+    public Adverts(Long categoryId, Long companyId, String advertsDate, String wayOfWorking, String advertsAbout, String advertsTitle, String advertsDescription) {
+        this.categoryId = categoryId;
+        this.companyId = companyId;
         this.advertsDate = advertsDate;
         this.wayOfWorking = wayOfWorking;
         this.advertsAbout = advertsAbout;

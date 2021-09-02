@@ -14,6 +14,7 @@ public class ApplicationDTO {
     private String wayOfWorking;
     private String advertsTitle;
     private String advertsDescription;
+    private String advertsAbout;
     private int status;
 
 
@@ -22,7 +23,7 @@ public class ApplicationDTO {
 
     }
 
-    public ApplicationDTO(Long id, Long applicantId, Long companyId, Long advertId, String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, int status) {
+    public ApplicationDTO(Long id, Long applicantId, Long companyId, Long advertId, String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, String advertsAbout, int status) {
         this.id = id;
         this.applicantId = applicantId;
         this.companyId = companyId;
@@ -35,6 +36,14 @@ public class ApplicationDTO {
         this.wayOfWorking = wayOfWorking;
         this.advertsTitle = advertsTitle;
         this.advertsDescription = advertsDescription;
+        this.advertsAbout = advertsAbout;
+        this.status = status;
+    }
+
+    public ApplicationDTO(Long applicantId, Long companyId, Long advertId, int status) {
+        this.applicantId = applicantId;
+        this.companyId = companyId;
+        this.advertId = advertId;
         this.status = status;
     }
 
@@ -124,6 +133,14 @@ public class ApplicationDTO {
 
     public void setAdvertsDescription(String advertsDescription) {
         this.advertsDescription = advertsDescription;
+    }
+
+    public String getAdvertsAbout() {
+        return advertsAbout;
+    }
+
+    public void setAdvertsAbout(String advertsAbout) {
+        this.advertsAbout = advertsAbout;
     }
 
     public int getStatus() {

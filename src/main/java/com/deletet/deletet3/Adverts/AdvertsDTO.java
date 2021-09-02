@@ -37,6 +37,7 @@ public class AdvertsDTO {
         this.advertsDescription = advertsDescription;
     }
 
+
     public Long getId() {
         return id;
     }

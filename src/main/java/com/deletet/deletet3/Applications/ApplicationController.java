@@ -2,6 +2,7 @@ package com.deletet.deletet3.Applications;
 
 import com.deletet.deletet3.Adverts.Adverts;
 import com.deletet.deletet3.Adverts.AdvertsDTO;
+import com.deletet.deletet3.Adverts.AdvertsRepository;
 import com.deletet.deletet3.Companies.Company;
 import com.deletet.deletet3.Companies.CompanyRepository;
 import com.deletet.deletet3.appuser.AppUser;
@@ -10,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Column;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,13 +27,15 @@ public class ApplicationController {
     private Company company;
     private AppUserRepository appUserRepository;
     private CompanyRepository companyRepository;
+    private AdvertsRepository advertsRepository;
 
     private final ApplicationRepository applicationRepository;
 
-    public ApplicationController(AppUserRepository appUserRepository, ApplicationRepository applicationRepository, CompanyRepository companyRepository){
+    public ApplicationController(AppUserRepository appUserRepository, ApplicationRepository applicationRepository, CompanyRepository companyRepository, AdvertsRepository advertsRepository){
         this.appUserRepository = appUserRepository;
         this.applicationRepository = applicationRepository;
         this.companyRepository = companyRepository;
+        this.advertsRepository = advertsRepository;
     }
 
     @GetMapping("/application/{id}")
@@ -45,7 +51,7 @@ public class ApplicationController {
             {
                 if(app.getApplicantId().equals(appuser.getId()))
                 {
-                    applicationDTOS.add(new ApplicationDTO(app.getId(),app.getApplicantId(),app.getCompanyId(), app.getAdvertId(), app.getCompanyName(),app.getCompanyLocation(), app.getCompanyIcon(), app.getCompanyDesc(), app.getApplicationDate(),app.getWayOfWorking(),app.getAdvertsTitle(),app.getAdvertsDescription(),app.getStatus()));
+                    applicationDTOS.add(new ApplicationDTO(app.getId(),app.getApplicantId(),app.getCompanyId(), app.getAdvertId(), app.getCompanyName(),app.getCompanyLocation(), app.getCompanyIcon(), app.getCompanyDesc(), app.getApplicationDate(),app.getWayOfWorking(),app.getAdvertsTitle(),app.getAdvertsDescription(), app.getAdvertsAbout(),app.getStatus()));
                 }
             }
             return new ResponseEntity<>(applicationDTOS, HttpStatus.OK);
@@ -60,9 +66,21 @@ public class ApplicationController {
     @PostMapping("/application/create")
     public ResponseEntity<ApplicationDTO> create(@RequestBody ApplicationDTO request)
     {
-        Application application = new Application(request.getId(), request.getApplicantId(),request.getCompanyId(), request.getAdvertId(),request.getCompanyName(), request.getCompanyLocation(), request.getCompanyIcon(), request.getCompanyDesc(), request.getApplicationDate(),request.getWayOfWorking(),request.getAdvertsTitle(),request.getAdvertsDescription(),request.getStatus());
+
+        Optional<Company> tempCompany = companyRepository.findById(request.getCompanyId());
+        Company company = tempCompany.get();
+        Optional<Adverts> tempAdvert = advertsRepository.findById(request.getAdvertId());
+        Adverts advert = tempAdvert.get();
+
+        LocalDateTime mydate = LocalDateTime.now();
+        DateTimeFormatter myFormatdate = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = mydate.format(myFormatdate);
+
+        Application application = new Application(request.getApplicantId(),request.getCompanyId(), request.getAdvertId(),
+                company.getCompanyName(), company.getAddress(), company.getCompanyUrl(), company.getCompanyAbout(), formattedDate,
+                advert.getWayOfWorking(),advert.getAdvertsTitle(),advert.getAdvertsDescription(), advert.getAdvertsAbout(),request.getStatus());
         application = applicationRepository.save(application);
-        return new ResponseEntity<>(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyId(), application.getAdvertId(),application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(),application.getStatus()),HttpStatus.OK);
+        return new ResponseEntity<>(new ApplicationDTO(application.getId(),application.getApplicantId(), application.getCompanyId(), application.getAdvertId(),application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(), application.getAdvertsAbout(),application.getStatus()),HttpStatus.OK);
     }
 
 
@@ -79,7 +97,7 @@ public class ApplicationController {
             {
                 if(application.getCompanyId().equals(company.getId()))
                 {
-                    applicationDTOS.add(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyId(), application.getAdvertId(), application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(),application.getStatus()));
+                    applicationDTOS.add(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyId(), application.getAdvertId(), application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(), application.getAdvertsAbout(),application.getStatus()));
                 }
             }
             return new ResponseEntity<>(applicationDTOS, HttpStatus.OK);

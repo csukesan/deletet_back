@@ -6,8 +6,8 @@ server:
 
 spring:
   datasource:
-    password: furkan1905
-    url: jdbc:postgresql://localhost:5432/forum
+    password: s83SX
+    url: jdbc:postgresql://localhost:5432/deletet2
     username: postgres
   jpa:
     hibernate:
