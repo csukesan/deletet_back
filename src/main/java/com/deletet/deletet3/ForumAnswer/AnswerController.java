@@ -141,7 +141,7 @@ public class AnswerController {
             List<AnswerDTO> answerDTOS = new ArrayList<>();
             for(Answer db : answers)
             {
-                if(db.getQuestion_id()==id)
+                if(db.getQuestion_id().equals(id))
                 {
                     answerDTOS.add(new AnswerDTO(db.getId(),db.getUserid(),db.getFullname(),db.getQuestion_id(),db.getExplanation(),db.getBody(),db.getDate(),db.getStatus(),db.getLikecount(), db.getUpcount(),db.isOwner(), db.getImgUrl()));
                 }
