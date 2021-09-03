@@ -4,6 +4,7 @@ import com.deletet.deletet3.Adverts.Adverts;
 import com.deletet.deletet3.Adverts.AdvertsDTO;
 import com.deletet.deletet3.Adverts.AdvertsRepository;
 import com.deletet.deletet3.Companies.Company;
+import com.deletet.deletet3.Companies.CompanyDTO;
 import com.deletet.deletet3.Companies.CompanyRepository;
 import com.deletet.deletet3.appuser.AppUser;
 import com.deletet.deletet3.appuser.AppUserRepository;
@@ -117,6 +118,25 @@ public class ApplicationController {
 
         return new ResponseEntity<>(app,HttpStatus.OK);
 
+    }
+
+    @PostMapping("/adverts/application")
+    public ResponseEntity<List<ApplicationDTO>> getAdvertApplication(@RequestBody ApplicationDTO request)
+    {
+        Optional<Company> tempCompany = companyRepository.findById(request.getCompanyId());
+        Optional<Adverts> tempAdvert = advertsRepository.findById(request.getAdvertId());
+        Company company = tempCompany.get();
+        Adverts advert = tempAdvert.get();
+        List<Application> applications = applicationRepository.findAll();
+        List<ApplicationDTO> applicationDTOS = new ArrayList<>();
+        for(Application application : applications )
+        {
+            if(application.getCompanyId().equals(company.getId())&&application.getAdvertId().equals(advert.getId()))
+            {
+                applicationDTOS.add(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyId(), application.getAdvertId(), application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(), application.getAdvertsAbout(),application.getStatus()));
+            }
+        }
+        return new ResponseEntity<>(applicationDTOS,HttpStatus.OK);
     }
 
 }

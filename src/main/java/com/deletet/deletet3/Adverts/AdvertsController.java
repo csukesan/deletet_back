@@ -99,4 +99,5 @@ public class AdvertsController {
             return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
         }
     }
+
 }

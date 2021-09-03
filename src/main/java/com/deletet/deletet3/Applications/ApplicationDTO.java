@@ -52,6 +52,11 @@ public class ApplicationDTO {
         this.status = status;
     }
 
+    public ApplicationDTO(Long companyId, Long advertId) {
+        this.companyId = companyId;
+        this.advertId = advertId;
+    }
+
     public Long getId() {
         return id;
     }
