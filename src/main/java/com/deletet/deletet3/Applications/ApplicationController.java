@@ -6,6 +6,8 @@ import com.deletet.deletet3.Adverts.AdvertsRepository;
 import com.deletet.deletet3.Companies.Company;
 import com.deletet.deletet3.Companies.CompanyDTO;
 import com.deletet.deletet3.Companies.CompanyRepository;
+import com.deletet.deletet3.Profile.Profile;
+import com.deletet.deletet3.Profile.ProfileRepository;
 import com.deletet.deletet3.appuser.AppUser;
 import com.deletet.deletet3.appuser.AppUserRepository;
 import org.springframework.http.HttpStatus;
@@ -29,14 +31,16 @@ public class ApplicationController {
     private AppUserRepository appUserRepository;
     private CompanyRepository companyRepository;
     private AdvertsRepository advertsRepository;
+    private ProfileRepository profileRepository;
 
     private final ApplicationRepository applicationRepository;
 
-    public ApplicationController(AppUserRepository appUserRepository, ApplicationRepository applicationRepository, CompanyRepository companyRepository, AdvertsRepository advertsRepository){
+    public ApplicationController(AppUserRepository appUserRepository, ApplicationRepository applicationRepository, CompanyRepository companyRepository, AdvertsRepository advertsRepository, ProfileRepository profileRepository){
         this.appUserRepository = appUserRepository;
         this.applicationRepository = applicationRepository;
         this.companyRepository = companyRepository;
         this.advertsRepository = advertsRepository;
+        this.profileRepository = profileRepository;
     }
 
     @GetMapping("/application/{id}")
@@ -52,7 +56,7 @@ public class ApplicationController {
             {
                 if(app.getApplicantId().equals(appuser.getId()))
                 {
-                    applicationDTOS.add(new ApplicationDTO(app.getId(),app.getApplicantId(),app.getCompanyId(), app.getAdvertId(), app.getCompanyName(),app.getCompanyLocation(), app.getCompanyIcon(), app.getCompanyDesc(), app.getApplicationDate(),app.getWayOfWorking(),app.getAdvertsTitle(),app.getAdvertsDescription(), app.getAdvertsAbout(),app.getStatus()));
+                    applicationDTOS.add(new ApplicationDTO(app.getId(),app.getApplicantId(),app.getCompanyid(), app.getAdvertId(), app.getCompanyName(),app.getCompanyLocation(), app.getCompanyIcon(), app.getCompanyDesc(), app.getApplicationDate(),app.getWayOfWorking(),app.getAdvertsTitle(),app.getAdvertsDescription(), app.getAdvertsAbout(),app.getStatus()));
                 }
             }
             return new ResponseEntity<>(applicationDTOS, HttpStatus.OK);
@@ -81,7 +85,7 @@ public class ApplicationController {
                 company.getCompanyName(), company.getAddress(), company.getCompanyUrl(), company.getCompanyAbout(), formattedDate,
                 advert.getWayOfWorking(),advert.getAdvertsTitle(),advert.getAdvertsDescription(), advert.getAdvertsAbout(),request.getStatus());
         application = applicationRepository.save(application);
-        return new ResponseEntity<>(new ApplicationDTO(application.getId(),application.getApplicantId(), application.getCompanyId(), application.getAdvertId(),application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(), application.getAdvertsAbout(),application.getStatus()),HttpStatus.OK);
+        return new ResponseEntity<>(new ApplicationDTO(application.getId(),application.getApplicantId(), application.getCompanyid(), application.getAdvertId(),application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(), application.getAdvertsAbout(),application.getStatus()),HttpStatus.OK);
     }
 
 
@@ -96,9 +100,9 @@ public class ApplicationController {
             List<ApplicationDTO> applicationDTOS = new ArrayList<>();
             for(Application application : applications)
             {
-                if(application.getCompanyId().equals(company.getId()))
+                if(application.getCompanyid().equals(company.getId()))
                 {
-                    applicationDTOS.add(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyId(), application.getAdvertId(), application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(), application.getAdvertsAbout(),application.getStatus()));
+                    applicationDTOS.add(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyid(), application.getAdvertId(), application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(), application.getAdvertsAbout(),application.getStatus()));
                 }
             }
             return new ResponseEntity<>(applicationDTOS, HttpStatus.OK);
@@ -131,9 +135,22 @@ public class ApplicationController {
         List<ApplicationDTO> applicationDTOS = new ArrayList<>();
         for(Application application : applications )
         {
-            if(application.getCompanyId().equals(company.getId())&&application.getAdvertId().equals(advert.getId()))
+            if(application.getCompanyid().equals(company.getId())&&application.getAdvertId().equals(advert.getId()))
             {
-                applicationDTOS.add(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyId(), application.getAdvertId(), application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(), application.getAdvertsAbout(),application.getStatus()));
+                Profile profile = null;
+                List<Profile> profiles = profileRepository.findAll();
+                for(Profile tempProfile : profiles)
+                {
+                    if(tempProfile.getUserId().equals(application.getApplicantId()))
+                    {
+                        profile = tempProfile;
+                    }
+                }
+                
+                applicationDTOS.add(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyid(), application.getAdvertId(),
+                        application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),
+                        application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(),
+                        application.getAdvertsAbout(),application.getStatus(),profile.getFullName(),profile.getImageUrl(),profile.getAbout()));
             }
         }
         return new ResponseEntity<>(applicationDTOS,HttpStatus.OK);

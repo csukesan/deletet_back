@@ -1,6 +1,7 @@
 package com.deletet.deletet3.Profile;
 
 
+import com.deletet.deletet3.appuser.AppUser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,13 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "profile_sequence")
     private Long id;
+
+    @OneToOne
+    @JoinColumn(
+            nullable = true,
+            name = "app_user_id"
+    )
+    private AppUser appuser;
     private Long userId;
     @Column(columnDefinition = "TEXT")
     private String imageUrl;

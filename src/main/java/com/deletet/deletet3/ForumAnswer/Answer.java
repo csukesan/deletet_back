@@ -1,5 +1,7 @@
 package com.deletet.deletet3.ForumAnswer;
 
+import com.deletet.deletet3.Forum.ForumHome;
+import com.deletet.deletet3.appuser.AppUser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +22,22 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "forum_sequence")
     private Long id;
+
+    @OneToOne
+    @JoinColumn(
+            nullable = true,
+            name = "app_user_id"
+    )
+    private AppUser appuser;
     private Long userid;
     private String fullname;
+
+    @ManyToOne
+    @JoinColumn(
+            nullable = true,
+            name = "forum_home_id"
+    )
+    private ForumHome forum;
     private Long question_id;
     @Column(columnDefinition = "TEXT")
     private String explanation;

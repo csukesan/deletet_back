@@ -1,6 +1,8 @@
 package com.deletet.deletet3.HomePage;
 
 
+import com.deletet.deletet3.Companies.Company;
+import com.deletet.deletet3.appuser.AppUser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,13 @@ public class News {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "news_sequence")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(
+            nullable = true,
+            name = "company_id"
+    )
+    private Company company;
     private String companyName;
     @Column(columnDefinition = "TEXT")
     private String companyIconUrl;

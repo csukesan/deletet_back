@@ -1,6 +1,8 @@
 package com.deletet.deletet3.Applications;
 
 
+import com.deletet.deletet3.Companies.Company;
+import com.deletet.deletet3.appuser.AppUser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,15 +25,37 @@ public class Interview {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "interview_sequence")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(
+            nullable = true,
+            name = "app_user_id"
+    )
+    private AppUser appuser;
     private String applicantName;
     private Long applicantId;
     @Column(columnDefinition = "TEXT")
     private String applicantIcon;
+
+
+    @ManyToOne
+    @JoinColumn(
+            nullable = true,
+            name = "company_id"
+    )
+    private Company company;
     private String companyName;
-    private Long companyId;
+    private Long companyid;
     @Column(columnDefinition = "TEXT")
     private String companyIcon;
-    private Long applicationId;
+
+    @ManyToOne
+    @JoinColumn(
+            nullable = true,
+            name = "application_id"
+    )
+    private Application application;
+    private Long applicationid;
     private String title;
     @Column(columnDefinition = "TEXT")
     private String applicationDesc;
@@ -44,14 +68,14 @@ public class Interview {
     private String interStatus;
 
 
-    public Interview(String applicantName, Long applicantId, String applicantIcon, String companyName, Long companyId, String companyIcon, Long applicationId, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, String interDate, String location, String applicationStatus, String interStatus) {
+    public Interview(String applicantName, Long applicantId, String applicantIcon, String companyName, Long companyid, String companyIcon, Long applicationid, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, String interDate, String location, String applicationStatus, String interStatus) {
         this.applicantName = applicantName;
         this.applicantId = applicantId;
         this.applicantIcon = applicantIcon;
         this.companyName = companyName;
-        this.companyId = companyId;
+        this.companyid = companyid;
         this.companyIcon = companyIcon;
-        this.applicationId = applicationId;
+        this.applicationid = applicationid;
         this.title = title;
         this.applicationDesc = applicationDesc;
         this.companyOfficer = companyOfficer;
@@ -92,11 +116,11 @@ public class Interview {
     }
 
     public Long getApplicationId() {
-        return applicationId;
+        return applicationid;
     }
 
     public void setApplicationId(Long applicationId) {
-        this.applicationId = applicationId;
+        this.applicationid = applicationId;
     }
 
     public void setCompanyName(String companyName) {
@@ -104,11 +128,11 @@ public class Interview {
     }
 
     public Long getCompanyId() {
-        return companyId;
+        return companyid;
     }
 
     public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
+        this.companyid = companyId;
     }
 
     public String getCompanyIcon() {

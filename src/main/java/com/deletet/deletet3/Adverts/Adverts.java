@@ -1,5 +1,6 @@
 package com.deletet.deletet3.Adverts;
 
+import com.deletet.deletet3.Companies.Company;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,13 @@ public class Adverts {
             generator = "advert_sequence")
     private Long id;
     private Long categoryId;
-    private Long companyId;
+    @ManyToOne
+    @JoinColumn(
+            nullable = true,
+            name = "company_id"
+    )
+    private Company company;
+    private Long companyid;
     private String companyName;
     private String companyLocation;
     @Column(columnDefinition = "TEXT")
@@ -35,10 +42,10 @@ public class Adverts {
     @Column(columnDefinition = "TEXT")
     private String advertsDescription;
 
-    public Adverts(Long categoryId, Long companyId, String companyName, String companyLocation, String companyIcon, String companyDesc, String advertsDate, String wayOfWorking, String advertsAbout, String advertsTitle, String advertsDescription) {
+    public Adverts(Long categoryId, Long companyid, String companyName, String companyLocation, String companyIcon, String companyDesc, String advertsDate, String wayOfWorking, String advertsAbout, String advertsTitle, String advertsDescription) {
         this.id = id;
         this.categoryId = categoryId;
-        this.companyId = companyId;
+        this.companyid = companyid;
         this.companyName = companyName;
         this.companyLocation = companyLocation;
         this.companyIcon = companyIcon;
@@ -52,7 +59,7 @@ public class Adverts {
 
     public Adverts(Long categoryId, Long companyId, String advertsDate, String wayOfWorking, String advertsAbout, String advertsTitle, String advertsDescription) {
         this.categoryId = categoryId;
-        this.companyId = companyId;
+        this.companyid = companyId;
         this.advertsDate = advertsDate;
         this.wayOfWorking = wayOfWorking;
         this.advertsAbout = advertsAbout;

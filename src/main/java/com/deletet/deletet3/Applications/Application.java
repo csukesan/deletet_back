@@ -1,5 +1,8 @@
 package com.deletet.deletet3.Applications;
 
+import com.deletet.deletet3.Adverts.Adverts;
+import com.deletet.deletet3.Companies.Company;
+import com.deletet.deletet3.appuser.AppUser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +25,28 @@ public class Application {
         @GeneratedValue(strategy = GenerationType.SEQUENCE,
                 generator = "application_sequence")
         private Long id;
+        @ManyToOne
+        @JoinColumn(
+            nullable = true,
+            name = "app_user_id"
+        )
+        private AppUser appuser;
         private Long applicantId;
-        private Long companyId;
+
+        @ManyToOne
+        @JoinColumn(
+            nullable = true,
+            name = "company_id"
+        )
+        private Company company;
+        private Long companyid;
+
+        @OneToOne
+        @JoinColumn(
+            nullable = true,
+            name = "adverts_id"
+        )
+        private Adverts advert;
         private Long advertId;
         private String companyName;
         private String companyLocation;
@@ -39,9 +62,9 @@ public class Application {
         private String advertsAbout;
         private int status;
 
-        public Application(Long applicantId, Long companyId, Long advertId, String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, String advertsAbout, int status) {
+        public Application(Long applicantId, Long companyid, Long advertId, String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, String advertsAbout, int status) {
             this.applicantId = applicantId;
-            this.companyId = companyId;
+            this.companyid = companyid;
             this.advertId = advertId;
             this.companyName = companyName;
             this.companyLocation = companyLocation;
@@ -55,9 +78,9 @@ public class Application {
             this.status = status;
         }
 
-    public Application(Long applicantId, Long companyId, Long advertId, int status) {
+    public Application(Long applicantId, Long companyid, Long advertId, int status) {
         this.applicantId = applicantId;
-        this.companyId = companyId;
+        this.companyid = companyid;
         this.advertId = advertId;
         this.status = status;
     }

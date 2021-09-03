@@ -16,6 +16,9 @@ public class ApplicationDTO {
     private String advertsDescription;
     private String advertsAbout;
     private int status;
+    private String applicantName;
+    private String applicantImg;
+    private String applicantAbout;
 
 
     public ApplicationDTO()
@@ -55,6 +58,26 @@ public class ApplicationDTO {
     public ApplicationDTO(Long companyId, Long advertId) {
         this.companyId = companyId;
         this.advertId = advertId;
+    }
+
+    public ApplicationDTO(Long id, Long applicantId, Long companyId, Long advertId, String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, String advertsAbout, int status, String applicantName, String applicantImg, String applicantAbout) {
+        this.id=id;
+        this.applicantId = applicantId;
+        this.companyId = companyId;
+        this.advertId = advertId;
+        this.companyName = companyName;
+        this.companyLocation = companyLocation;
+        this.companyIcon = companyIcon;
+        this.companyDesc = companyDesc;
+        this.applicationDate = applicationDate;
+        this.wayOfWorking = wayOfWorking;
+        this.advertsTitle = advertsTitle;
+        this.advertsDescription = advertsDescription;
+        this.advertsAbout = advertsAbout;
+        this.status = status;
+        this.applicantName = applicantName;
+        this.applicantImg = applicantImg;
+        this.applicantAbout = applicantAbout;
     }
 
     public Long getId() {
@@ -167,5 +190,29 @@ public class ApplicationDTO {
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
+    }
+
+    public String getApplicantName() {
+        return applicantName;
+    }
+
+    public void setApplicantName(String applicantName) {
+        this.applicantName = applicantName;
+    }
+
+    public String getApplicantImg() {
+        return applicantImg;
+    }
+
+    public void setApplicantImg(String applicantImg) {
+        this.applicantImg = applicantImg;
+    }
+
+    public String getApplicantAbout() {
+        return applicantAbout;
+    }
+
+    public void setApplicantAbout(String applicantAbout) {
+        this.applicantAbout = applicantAbout;
     }
 }

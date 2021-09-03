@@ -45,7 +45,7 @@ public class AdvertsController {
         List<AdvertsDTO> advertsDTOS = new ArrayList<>();
         for(Adverts advert : adverts)
         {
-            advertsDTOS.add(new AdvertsDTO(advert.getId(),advert.getCategoryId(),advert.getCompanyId(),advert.getCompanyName(),advert.getCompanyLocation(), advert.getCompanyIcon(), advert.getCompanyDesc(), advert.getAdvertsDate(),advert.getWayOfWorking(),advert.getAdvertsAbout(),advert.getAdvertsTitle(),advert.getAdvertsDescription()));
+            advertsDTOS.add(new AdvertsDTO(advert.getId(),advert.getCategoryId(),advert.getCompanyid(),advert.getCompanyName(),advert.getCompanyLocation(), advert.getCompanyIcon(), advert.getCompanyDesc(), advert.getAdvertsDate(),advert.getWayOfWorking(),advert.getAdvertsAbout(),advert.getAdvertsTitle(),advert.getAdvertsDescription()));
         }
         return new ResponseEntity<>(advertsDTOS, HttpStatus.OK);
     }
@@ -57,7 +57,7 @@ public class AdvertsController {
         Company company = tempCompany.get();
         Adverts advert = new Adverts(request.getCategoryId(), request.getCompanyId(), company.getCompanyName(), company.getAddress(), company.getCompanyUrl(), company.getCompanyAbout(), request.getAdvertsDate(),request.getWayOfWorking(),request.getAdvertsAbout(),request.getAdvertsTitle(),request.getAdvertsDescription());
         advert = advertsRepository.save(advert);
-        return new ResponseEntity<>(new AdvertsDTO(advert.getId(), advert.getCategoryId(), advert.getCompanyId(), advert.getCompanyName(),advert.getCompanyLocation(),advert.getCompanyIcon(),advert.getCompanyDesc(),advert.getAdvertsDate(),advert.getWayOfWorking(),advert.getAdvertsAbout(),advert.getAdvertsTitle(),advert.getAdvertsDescription()),HttpStatus.OK);
+        return new ResponseEntity<>(new AdvertsDTO(advert.getId(), advert.getCategoryId(), advert.getCompanyid(), advert.getCompanyName(),advert.getCompanyLocation(),advert.getCompanyIcon(),advert.getCompanyDesc(),advert.getAdvertsDate(),advert.getWayOfWorking(),advert.getAdvertsAbout(),advert.getAdvertsTitle(),advert.getAdvertsDescription()),HttpStatus.OK);
     }
 
     @PostMapping("/adverts/check")
@@ -66,7 +66,7 @@ public class AdvertsController {
         List<Application> applications = applicationRepository.findAll();
         for(Application application : applications )
         {
-            if(application.getAdvertId()==request.advertid&& application.getApplicantId()==request.userid)
+            if(application.getAdvertId().equals(request.advertid)&& application.getApplicantId().equals(request.userid))
             {
                 return true;
             }
@@ -87,9 +87,9 @@ public class AdvertsController {
             List<AdvertsDTO> advertsDTOS = new ArrayList<>();
             for(Adverts advert : adverts)
             {
-                if(advert.getCompanyId().equals(company.getId()))
+                if(advert.getCompanyid().equals(company.getId()))
                 {
-                    advertsDTOS.add(new AdvertsDTO(advert.getId(), advert.getCategoryId(), advert.getCompanyId(), advert.getCompanyName(),advert.getCompanyLocation(),advert.getCompanyIcon(),advert.getCompanyDesc(),advert.getAdvertsDate(),advert.getWayOfWorking(),advert.getAdvertsAbout(),advert.getAdvertsTitle(),advert.getAdvertsDescription()));
+                    advertsDTOS.add(new AdvertsDTO(advert.getId(), advert.getCategoryId(), advert.getCompanyid(), advert.getCompanyName(),advert.getCompanyLocation(),advert.getCompanyIcon(),advert.getCompanyDesc(),advert.getAdvertsDate(),advert.getWayOfWorking(),advert.getAdvertsAbout(),advert.getAdvertsTitle(),advert.getAdvertsDescription()));
                 }
             }
             return new ResponseEntity<>(advertsDTOS, HttpStatus.OK);
