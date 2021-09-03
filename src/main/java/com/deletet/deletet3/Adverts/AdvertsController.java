@@ -87,7 +87,7 @@ public class AdvertsController {
             List<AdvertsDTO> advertsDTOS = new ArrayList<>();
             for(Adverts advert : adverts)
             {
-                if(advert.getCompanyId()==company.getId())
+                if(advert.getCompanyId().equals(company.getId()))
                 {
                     advertsDTOS.add(new AdvertsDTO(advert.getId(), advert.getCategoryId(), advert.getCompanyId(), advert.getCompanyName(),advert.getCompanyLocation(),advert.getCompanyIcon(),advert.getCompanyDesc(),advert.getAdvertsDate(),advert.getWayOfWorking(),advert.getAdvertsAbout(),advert.getAdvertsTitle(),advert.getAdvertsDescription()));
                 }
