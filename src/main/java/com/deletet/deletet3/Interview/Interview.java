@@ -1,6 +1,7 @@
-package com.deletet.deletet3.Applications;
+package com.deletet.deletet3.Interview;
 
 
+import com.deletet.deletet3.Applications.Application;
 import com.deletet.deletet3.Companies.Company;
 import com.deletet.deletet3.appuser.AppUser;
 import lombok.EqualsAndHashCode;

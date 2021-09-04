@@ -1,4 +1,4 @@
-package com.deletet.deletet3.Applications;
+package com.deletet.deletet3.Interview;
 
 
 import com.deletet.deletet3.Companies.Company;

@@ -1,4 +1,4 @@
-package com.deletet.deletet3.Applications;
+package com.deletet.deletet3.Interview;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
