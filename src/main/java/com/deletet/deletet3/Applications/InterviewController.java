@@ -98,7 +98,7 @@ public class InterviewController {
         Company company = tempCompany.get();
         Optional<AppUser> tempUser = appUserRepository.findById(request.getApplicantId());
         AppUser appuser = tempUser.get();
-        Optional<Application> tempApp = applicationRepository.findById(request.getApplicantId());
+        Optional<Application> tempApp = applicationRepository.findById(request.getApplicationId());
         Application application = tempApp.get();
         Profile profile = null;
         List<Profile> profiles = profileRepository.findAll();

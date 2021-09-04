@@ -36,8 +36,9 @@ public class ForumHome {
     private int upcount;
     @Column(columnDefinition = "TEXT")
     private String imgUrl;
+    private String likes;
 
-public ForumHome(Long id, String fullname, String title, String explanation, String body, String languages, String date, String status, int likecount, int upcount, String imgUrl){
+public ForumHome(Long id, String fullname, String title, String explanation, String body, String languages, String date, String status, int likecount, int upcount, String imgUrl, String likes){
 
     this.id=id;
     this.fullname=fullname;
@@ -50,8 +51,20 @@ public ForumHome(Long id, String fullname, String title, String explanation, Str
     this.likecount=likecount;
     this.upcount=upcount;
     this.imgUrl=imgUrl;
+    this.likes = likes;
 }
 
-
-
+    public ForumHome(Long id, String fullname, String title, String explanation, String body, String languages, String date, String status, int likecount, int upcount, String imgUrl) {
+        this.id = id;
+        this.fullname = fullname;
+        this.title = title;
+        this.explanation = explanation;
+        this.body = body;
+        this.languages = languages;
+        this.date = date;
+        this.status = status;
+        this.likecount = likecount;
+        this.upcount = upcount;
+        this.imgUrl = imgUrl;
+    }
 }

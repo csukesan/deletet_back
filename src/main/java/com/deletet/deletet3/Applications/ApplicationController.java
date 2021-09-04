@@ -119,6 +119,7 @@ public class ApplicationController {
         Optional<Application> application = applicationRepository.findById(id);
         Application app = application.get();
         app.setStatus(request.getStatus());
+        app = applicationRepository.save(app);
 
         return new ResponseEntity<>(app,HttpStatus.OK);
 
@@ -150,7 +151,7 @@ public class ApplicationController {
                 applicationDTOS.add(new ApplicationDTO(application.getId(), application.getApplicantId(), application.getCompanyid(), application.getAdvertId(),
                         application.getCompanyName(),application.getCompanyLocation(),application.getCompanyIcon(),application.getCompanyDesc(),
                         application.getApplicationDate(),application.getWayOfWorking(),application.getAdvertsTitle(),application.getAdvertsDescription(),
-                        application.getAdvertsAbout(),application.getStatus(),profile.getFullName(),profile.getImageUrl(),profile.getAbout()));
+                        application.getAdvertsAbout(),application.getStatus(),profile.getFullName(),profile.getImageUrl(),profile.getAbout(), profile.getExperiences()));
             }
         }
         return new ResponseEntity<>(applicationDTOS,HttpStatus.OK);

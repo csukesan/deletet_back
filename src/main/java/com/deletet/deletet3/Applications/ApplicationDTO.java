@@ -19,6 +19,7 @@ public class ApplicationDTO {
     private String applicantName;
     private String applicantImg;
     private String applicantAbout;
+    private String applicantExp;
 
 
     public ApplicationDTO()
@@ -60,7 +61,7 @@ public class ApplicationDTO {
         this.advertId = advertId;
     }
 
-    public ApplicationDTO(Long id, Long applicantId, Long companyId, Long advertId, String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, String advertsAbout, int status, String applicantName, String applicantImg, String applicantAbout) {
+    public ApplicationDTO(Long id, Long applicantId, Long companyId, Long advertId, String companyName, String companyLocation, String companyIcon, String companyDesc, String applicationDate, String wayOfWorking, String advertsTitle, String advertsDescription, String advertsAbout, int status, String applicantName, String applicantImg, String applicantAbout, String applicantExp) {
         this.id=id;
         this.applicantId = applicantId;
         this.companyId = companyId;
@@ -78,6 +79,7 @@ public class ApplicationDTO {
         this.applicantName = applicantName;
         this.applicantImg = applicantImg;
         this.applicantAbout = applicantAbout;
+        this.applicantExp=applicantExp;
     }
 
     public Long getId() {
@@ -214,5 +216,14 @@ public class ApplicationDTO {
 
     public void setApplicantAbout(String applicantAbout) {
         this.applicantAbout = applicantAbout;
+    }
+
+
+    public String getApplicantExp() {
+        return applicantExp;
+    }
+
+    public void setApplicantExp(String applicantExp) {
+        this.applicantExp = applicantExp;
     }
 }

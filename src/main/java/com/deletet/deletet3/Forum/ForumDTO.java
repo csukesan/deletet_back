@@ -15,6 +15,50 @@ public class ForumDTO {
     private int likecount;
     private int upcount;
     private String imgUrl;
+    private String likes;
+
+
+
+    public ForumDTO(Long id, String fullname, String title, String explanation, String body, String languages, String date, String status, int likecount, int upcount,String imgUrl, String likes) {
+
+        this.id = id;
+        this.fullname = fullname;
+        this.title = title;
+        this.explanation = explanation;
+        this.body = body;
+        this.languages = languages;
+        this.date = date;
+        this.status = status;
+        this.likecount=likecount;
+        this.upcount=upcount;
+        this.imgUrl=imgUrl;
+        this.likes = likes;
+    }
+
+    public ForumDTO(Long id, String fullname, String title, String explanation, String body, String languages, String date, String status, int likecount, int upcount, String imgUrl) {
+        this.id = id;
+        this.fullname = fullname;
+        this.title = title;
+        this.explanation = explanation;
+        this.body = body;
+        this.languages = languages;
+        this.date = date;
+        this.status = status;
+        this.likecount = likecount;
+        this.upcount = upcount;
+        this.imgUrl = imgUrl;
+    }
+
+    public ForumDTO() {
+    }
+
+    public String getLikes() {
+        return likes;
+    }
+
+    public void setLikes(String likes) {
+        this.likes = likes;
+    }
 
     public int getLikecount() {
         return likecount;
@@ -102,21 +146,6 @@ public class ForumDTO {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public ForumDTO(Long id, String fullname, String title, String explanation, String body, String languages, String date, String status, int likecount, int upcount,String imgUrl) {
-
-        this.id = id;
-        this.fullname = fullname;
-        this.title = title;
-        this.explanation = explanation;
-        this.body = body;
-        this.languages = languages;
-        this.date = date;
-        this.status = status;
-        this.likecount=likecount;
-        this.upcount=upcount;
-        this.imgUrl=imgUrl;
     }
 
 
