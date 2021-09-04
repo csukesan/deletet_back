@@ -66,14 +66,26 @@ public class ForumController {
     @PutMapping("/forum/updatelike/{id}")
     public ResponseEntity<ForumDTO> update(@PathVariable Long id, @RequestBody ForumLikeRequest request)
     {
+        boolean flag = false;
         Optional<ForumHome> optionalForumHome = forumRepository.findById(id);
         if (optionalForumHome.isPresent())
         {
             ForumHome db = optionalForumHome.get();
-            db.setLikecount(db.getLikecount()+1);
             String temp = db.getLikes();
-            temp = temp + "," + request.getUserid();
-            db.setLikes(temp);
+            String[] likes = temp.split("\\W+");
+            for(int i=0; i< likes.length;i++)
+            {
+                if(likes[i].equals(request.getUserid()))
+                {
+                    flag = true;
+                }
+            }
+            if(!flag)
+            {
+                db.setLikecount(db.getLikecount()+1);
+                temp = temp + "," + request.getUserid();
+                db.setLikes(temp);
+            }
             db = forumRepository.save(db);
 
             return new ResponseEntity<>(new ForumDTO(db.getId(),db.getFullname(),db.getTitle(),db.getExplanation(),db.getBody(),db.getLanguages(),db.getDate(),db.getStatus(),db.getLikecount(), db.getUpcount(), db.getImgUrl(), db.getLikes()), HttpStatus.OK);
@@ -83,16 +95,35 @@ public class ForumController {
     }
 
     @PutMapping("/forum/deletelike/{id}")
-    public ResponseEntity<ForumDTO> delete(@PathVariable Long id)
+    public ResponseEntity<ForumDTO> delete(@PathVariable Long id, @RequestBody ForumLikeRequest request)
     {
         Optional<ForumHome> optionalForumHome = forumRepository.findById(id);
         if (optionalForumHome.isPresent())
         {
+
             ForumHome db = optionalForumHome.get();
+            String temp = db.getLikes();
+            String[] likes = temp.split("\\W+");
+            String[] anotherArray = new String[likes.length - 1];
+            for(int i=0, k=0; i< likes.length;i++)
+            {
+                if(likes[i].equals(request.getUserid()))
+                {
+                    continue;
+                }
+                anotherArray[k++] = likes[i];
+            }
+            String delimiter =",";
+            StringBuilder sb = new StringBuilder();
+            for (String str : anotherArray)
+                sb.append(str).append(delimiter);
+            temp = sb.substring(0, sb.length() - 1);
+            //System.out.println(temp);
+            db.setLikes(temp);
             db.setLikecount(db.getLikecount()-1);
             db = forumRepository.save(db);
 
-            return new ResponseEntity<>(new ForumDTO(db.getId(),db.getFullname(),db.getTitle(),db.getExplanation(),db.getBody(),db.getLanguages(),db.getDate(),db.getStatus(), db.getLikecount(), db.getUpcount(),db.getImgUrl()), HttpStatus.OK);
+            return new ResponseEntity<>(new ForumDTO(db.getId(),db.getFullname(),db.getTitle(),db.getExplanation(),db.getBody(),db.getLanguages(),db.getDate(),db.getStatus(), db.getLikecount(), db.getUpcount(),db.getImgUrl(),db.getLikes()), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
