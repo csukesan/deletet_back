@@ -1,6 +1,8 @@
 package com.deletet.deletet3.Interview;
 
 
+import com.deletet.deletet3.Applications.Application;
+import com.deletet.deletet3.Applications.ApplicationRepository;
 import com.deletet.deletet3.Companies.Company;
 import com.deletet.deletet3.Companies.CompanyRepository;
 import com.deletet.deletet3.Profile.Profile;
