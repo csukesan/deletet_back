@@ -24,6 +24,10 @@ public class InterviewDTO {
     public InterviewDTO() {
     }
 
+    public InterviewDTO(String interStatus) {
+        this.interStatus = interStatus;
+    }
+
     public InterviewDTO(Long id, String applicantName, Long applicantId, String applicantIcon, String companyName, Long companyId, String companyIcon, Long applicationId, String title, String applicationDesc, String companyOfficer, String companyDepartment, String position, String interDate, String location, String applicationStatus, String interStatus) {
         this.id=id;
         this.applicantName = applicantName;

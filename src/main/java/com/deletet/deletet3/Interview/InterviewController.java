@@ -121,6 +121,17 @@ public class InterviewController {
 
     }
 
+    @PutMapping("/interview/updateStatus/{id}")
+    public ResponseEntity<Interview> updateStatus (@PathVariable Long id, @RequestBody InterviewDTO request)
+    {
+        Optional<Interview> interview = InterviewRepository.findById(id);
+        Interview inter = interview.get();
+        inter.setInterStatus(request.getInterStatus());
+        inter = InterviewRepository.save(inter);
+
+        return new ResponseEntity<>(inter,HttpStatus.OK);
+    }
+
 
 
 
