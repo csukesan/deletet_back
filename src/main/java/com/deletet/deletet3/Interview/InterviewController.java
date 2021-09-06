@@ -52,7 +52,7 @@ public class InterviewController {
             List<InterviewDTO> interviewDTOS = new ArrayList<>();
             for(Interview interview : interviews)
             {
-                if(interview.getCompanyId()==company.getId())
+                if(interview.getCompanyId().equals(company.getId()))
                 {
                     interviewDTOS.add(new InterviewDTO(interview.getId(), interview.getApplicantName(), interview.getApplicantId(),interview.getApplicantIcon(),interview.getCompanyName(),interview.getCompanyId(),interview.getCompanyIcon(),
                             interview.getApplicationId(),interview.getTitle(), interview.getApplicationDesc(),interview.getCompanyOfficer(),interview.getCompanyDepartment(),interview.getPosition(),
@@ -78,7 +78,7 @@ public class InterviewController {
             List<InterviewDTO> interviewDTOS = new ArrayList<>();
             for(Interview interview : interviews)
             {
-                if(interview.getApplicantId()==appuser.getId())
+                if(interview.getApplicantId().equals(appuser.getId()))
                 {
                     interviewDTOS.add(new InterviewDTO(interview.getId(), interview.getApplicantName(), interview.getApplicantId(),interview.getApplicantIcon(),interview.getCompanyName(),interview.getCompanyId(),interview.getCompanyIcon(),
                             interview.getApplicationId(),interview.getTitle(), interview.getApplicationDesc(),interview.getCompanyOfficer(),interview.getCompanyDepartment(),interview.getPosition(),
