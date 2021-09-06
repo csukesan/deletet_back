@@ -27,10 +27,9 @@ public class ForumController {
     @GetMapping(value = "/forum/readAll")
     public ResponseEntity<List<ForumDTO>> readAll()
     {
-        List<ForumHome> forum = forumRepository.findAll();
+        List<ForumHome> forum = forumRepository.findAllByOrderByIdDesc();
         List<ForumDTO> forumDTOS = new ArrayList<>();
-        for(ForumHome forums : forum)
-        {
+        for(ForumHome forums : forum) {
             forumDTOS.add(new ForumDTO(forums.getId(), forums.getFullname(), forums.getTitle(), forums.getExplanation(), forums.getBody(), forums.getLanguages(), forums.getDate(), forums.getStatus(), forums.getLikecount(), forums.getUpcount(), forums.getImgUrl(), forums.getLikes()));
         }
         return new ResponseEntity<>(forumDTOS, HttpStatus.OK);
